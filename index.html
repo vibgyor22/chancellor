@@ -26,21 +26,25 @@ html{scroll-behavior:smooth}
 body{font-family:var(--fn);color:var(--ink);background:var(--white);overflow-x:hidden}
 
 /* ─── WOVEN TEXTURE ─── */
-/* Fine crosshatch on light bg */
+/* Visible linen weave on light bg — warp + weft threads */
 .tex-lt::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
   background-image:
-    repeating-linear-gradient(0deg,transparent 0,transparent 5px,rgba(0,0,0,.025) 5px,rgba(0,0,0,.025) 6px),
-    repeating-linear-gradient(90deg,transparent 0,transparent 5px,rgba(0,0,0,.025) 5px,rgba(0,0,0,.025) 6px)}
-/* Fine crosshatch on dark bg */
+    repeating-linear-gradient(0deg,  transparent 0,transparent 7px, rgba(0,0,0,.055) 7px, rgba(0,0,0,.055) 8px),
+    repeating-linear-gradient(90deg, transparent 0,transparent 7px, rgba(0,0,0,.04)  7px, rgba(0,0,0,.04)  8px),
+    repeating-linear-gradient(0deg,  transparent 0,transparent 3px, rgba(0,0,0,.02)  3px, rgba(0,0,0,.02)  4px),
+    repeating-linear-gradient(90deg, transparent 0,transparent 3px, rgba(0,0,0,.015) 3px, rgba(0,0,0,.015) 4px)}
+/* Visible weave on dark bg */
 .tex-dk::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
   background-image:
-    repeating-linear-gradient(0deg,transparent 0,transparent 5px,rgba(255,255,255,.04) 5px,rgba(255,255,255,.04) 6px),
-    repeating-linear-gradient(90deg,transparent 0,transparent 5px,rgba(255,255,255,.04) 5px,rgba(255,255,255,.04) 6px)}
-/* Diagonal twill on linen sections */
+    repeating-linear-gradient(0deg,  transparent 0,transparent 7px, rgba(255,255,255,.07) 7px, rgba(255,255,255,.07) 8px),
+    repeating-linear-gradient(90deg, transparent 0,transparent 7px, rgba(255,255,255,.05) 7px, rgba(255,255,255,.05) 8px),
+    repeating-linear-gradient(0deg,  transparent 0,transparent 3px, rgba(255,255,255,.03) 3px, rgba(255,255,255,.03) 4px),
+    repeating-linear-gradient(90deg, transparent 0,transparent 3px, rgba(255,255,255,.025)3px, rgba(255,255,255,.025)4px)}
+/* Diagonal twill (herringbone) */
 .tex-tw::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
   background-image:
-    repeating-linear-gradient(45deg,transparent 0,transparent 14px,rgba(0,0,0,.04) 14px,rgba(0,0,0,.04) 15px),
-    repeating-linear-gradient(-45deg,transparent 0,transparent 14px,rgba(0,0,0,.04) 14px,rgba(0,0,0,.04) 15px)}
+    repeating-linear-gradient(45deg, transparent 0,transparent 10px,rgba(0,0,0,.06) 10px,rgba(0,0,0,.06) 11px),
+    repeating-linear-gradient(-45deg,transparent 0,transparent 10px,rgba(0,0,0,.04) 10px,rgba(0,0,0,.04) 11px)}
 .tex-lt>*,.tex-dk>*,.tex-tw>*{position:relative;z-index:1}
 
 /* ─── NAV ─── */
@@ -49,9 +53,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:999;
   transition:all .4s ease}
 nav.s{background:rgba(253,253,252,.96);backdrop-filter:blur(14px);
   padding:1rem 5%;border-bottom:1px solid rgba(0,0,0,.07)}
-.nav-logo{font-family:var(--fs);font-size:1.5rem;font-weight:600;
-  letter-spacing:.2em;color:var(--white);text-decoration:none;
-  text-transform:uppercase;transition:color .4s}
+.nav-logo{font-family:var(--fs);font-size:1.6rem;font-weight:400;
+  letter-spacing:.12em;color:var(--white);text-decoration:none;
+  text-transform:lowercase;transition:color .4s}
 nav.s .nav-logo{color:var(--ink)}
 .nav-links{display:flex;gap:2.4rem;list-style:none;align-items:center}
 .nav-links a{font-size:.62rem;font-weight:500;letter-spacing:.22em;
@@ -79,10 +83,11 @@ nav.s .burger span{background:var(--ink)}
 .hero-pre{font-size:.6rem;letter-spacing:.5em;text-transform:uppercase;
   color:var(--sand);margin-bottom:1.8rem;display:flex;align-items:center;gap:1.2rem}
 .hero-pre::before{content:'';width:32px;height:1px;background:var(--sand)}
-h1{font-family:var(--fs);font-size:clamp(5.5rem,13vw,12rem);
-  font-weight:300;line-height:.88;color:var(--white);
-  letter-spacing:-.02em;margin-bottom:2rem}
-h1 em{font-style:italic;color:rgba(255,255,255,.35)}
+h1{font-family:var(--fs);font-size:clamp(3.8rem,8.5vw,9rem);
+  font-weight:300;line-height:1;color:var(--white);
+  letter-spacing:.04em;margin-bottom:2rem;
+  white-space:nowrap;text-transform:lowercase}
+h1 em{font-style:italic;color:rgba(255,255,255,.32)}
 .hero-sub{font-family:var(--fs);font-size:clamp(1rem,2vw,1.5rem);
   font-weight:300;font-style:italic;color:rgba(255,255,255,.4);
   letter-spacing:.08em;margin-bottom:3.5rem}
@@ -95,10 +100,7 @@ h1 em{font-style:italic;color:rgba(255,255,255,.35)}
   color:rgba(255,255,255,.4);text-decoration:none;
   border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:.15rem;transition:all .3s}
 .btn-ghost:hover{color:var(--white);border-color:rgba(255,255,255,.6)}
-.hero-img{position:absolute;right:6%;top:50%;transform:translateY(-50%);
-  width:clamp(260px,28vw,440px);z-index:2}
-.hero-img img{width:100%;height:auto;
-  filter:drop-shadow(0 40px 80px rgba(0,0,0,.7)) brightness(1.05)}
+/* hero-img removed — hero is now purely typographic + textile texture */
 .hero-vline{position:absolute;right:5%;bottom:0;top:0;width:1px;
   background:linear-gradient(to bottom,transparent,rgba(255,255,255,.08),transparent);
   z-index:1}
@@ -162,8 +164,10 @@ h1 em{font-style:italic;color:rgba(255,255,255,.35)}
 .cats{padding:6rem 5%;background:var(--ink);position:relative}
 .cats::before{content:'';position:absolute;inset:0;pointer-events:none;
   background-image:
-    repeating-linear-gradient(0deg,transparent 0,transparent 5px,rgba(255,255,255,.03) 5px,rgba(255,255,255,.03) 6px),
-    repeating-linear-gradient(90deg,transparent 0,transparent 5px,rgba(255,255,255,.03) 5px,rgba(255,255,255,.03) 6px)}
+    repeating-linear-gradient(0deg,  transparent 0,transparent 7px,rgba(255,255,255,.07) 7px,rgba(255,255,255,.07) 8px),
+    repeating-linear-gradient(90deg, transparent 0,transparent 7px,rgba(255,255,255,.05) 7px,rgba(255,255,255,.05) 8px),
+    repeating-linear-gradient(0deg,  transparent 0,transparent 3px,rgba(255,255,255,.03) 3px,rgba(255,255,255,.03) 4px),
+    repeating-linear-gradient(90deg, transparent 0,transparent 3px,rgba(255,255,255,.025)3px,rgba(255,255,255,.025)4px)}
 .cats-in{max-width:1400px;margin:0 auto;position:relative;z-index:1}
 .cats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:3.5rem}
 .cat{position:relative;aspect-ratio:4/5;overflow:hidden;cursor:pointer}
@@ -193,8 +197,10 @@ h1 em{font-style:italic;color:rgba(255,255,255,.35)}
 .hankies{padding:8rem 5%;background:var(--white);position:relative}
 .hankies::before{content:'';position:absolute;inset:0;pointer-events:none;
   background-image:
-    repeating-linear-gradient(0deg,transparent 0,transparent 5px,rgba(0,0,0,.018) 5px,rgba(0,0,0,.018) 6px),
-    repeating-linear-gradient(90deg,transparent 0,transparent 5px,rgba(0,0,0,.018) 5px,rgba(0,0,0,.018) 6px)}
+    repeating-linear-gradient(0deg,  transparent 0,transparent 7px,rgba(0,0,0,.055) 7px,rgba(0,0,0,.055) 8px),
+    repeating-linear-gradient(90deg, transparent 0,transparent 7px,rgba(0,0,0,.04)  7px,rgba(0,0,0,.04)  8px),
+    repeating-linear-gradient(0deg,  transparent 0,transparent 3px,rgba(0,0,0,.02)  3px,rgba(0,0,0,.02)  4px),
+    repeating-linear-gradient(90deg, transparent 0,transparent 3px,rgba(0,0,0,.015) 3px,rgba(0,0,0,.015) 4px)}
 .hk-in{max-width:1400px;margin:0 auto;position:relative;z-index:1}
 .hk-hdr{display:flex;align-items:flex-end;justify-content:space-between;
   flex-wrap:wrap;gap:1.5rem;margin-bottom:3rem}
@@ -260,8 +266,10 @@ h1 em{font-style:italic;color:rgba(255,255,255,.35)}
 .socks{padding:8rem 5%;background:var(--black);position:relative;overflow:hidden}
 .socks::before{content:'';position:absolute;inset:0;pointer-events:none;
   background-image:
-    repeating-linear-gradient(0deg,transparent 0,transparent 5px,rgba(255,255,255,.03) 5px,rgba(255,255,255,.03) 6px),
-    repeating-linear-gradient(90deg,transparent 0,transparent 5px,rgba(255,255,255,.03) 5px,rgba(255,255,255,.03) 6px)}
+    repeating-linear-gradient(0deg,  transparent 0,transparent 7px,rgba(255,255,255,.07) 7px,rgba(255,255,255,.07) 8px),
+    repeating-linear-gradient(90deg, transparent 0,transparent 7px,rgba(255,255,255,.05) 7px,rgba(255,255,255,.05) 8px),
+    repeating-linear-gradient(0deg,  transparent 0,transparent 3px,rgba(255,255,255,.03) 3px,rgba(255,255,255,.03) 4px),
+    repeating-linear-gradient(90deg, transparent 0,transparent 3px,rgba(255,255,255,.025)3px,rgba(255,255,255,.025)4px)}
 .socks-in{max-width:1400px;margin:0 auto;position:relative;z-index:1;
   display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
 .sk-title{font-family:var(--fs);font-size:clamp(2.5rem,4vw,4rem);
@@ -286,8 +294,10 @@ h1 em{font-style:italic;color:rgba(255,255,255,.35)}
 .contact{padding:8rem 5%;background:var(--ink);position:relative;overflow:hidden}
 .contact::before{content:'';position:absolute;inset:0;pointer-events:none;
   background-image:
-    repeating-linear-gradient(0deg,transparent 0,transparent 5px,rgba(255,255,255,.03) 5px,rgba(255,255,255,.03) 6px),
-    repeating-linear-gradient(90deg,transparent 0,transparent 5px,rgba(255,255,255,.03) 5px,rgba(255,255,255,.03) 6px)}
+    repeating-linear-gradient(0deg,  transparent 0,transparent 7px,rgba(255,255,255,.07) 7px,rgba(255,255,255,.07) 8px),
+    repeating-linear-gradient(90deg, transparent 0,transparent 7px,rgba(255,255,255,.05) 7px,rgba(255,255,255,.05) 8px),
+    repeating-linear-gradient(0deg,  transparent 0,transparent 3px,rgba(255,255,255,.03) 3px,rgba(255,255,255,.03) 4px),
+    repeating-linear-gradient(90deg, transparent 0,transparent 3px,rgba(255,255,255,.025)3px,rgba(255,255,255,.025)4px)}
 .con-in{max-width:1400px;margin:0 auto;position:relative;z-index:1;
   display:grid;grid-template-columns:1fr 1.1fr;gap:6rem}
 .con-title{font-family:var(--fs);font-size:clamp(2.5rem,4vw,4rem);
@@ -387,28 +397,45 @@ footer{background:var(--black);padding:2.5rem 5%;
 <section class="hero" id="home">
   <svg class="hero-canvas" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
     <defs>
-      <pattern id="wp" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
-        <line x1="0" y1="40" x2="80" y2="40" stroke="rgba(255,255,255,.04)" stroke-width=".5"/>
-        <line x1="40" y1="0" x2="40" y2="80" stroke="rgba(255,255,255,.04)" stroke-width=".5"/>
+      <!-- Tight linen weave: horizontal threads -->
+      <pattern id="warp" x="0" y="0" width="1" height="12" patternUnits="userSpaceOnUse">
+        <rect width="1" height="1" y="0" fill="rgba(255,255,255,.13)"/>
+        <rect width="1" height="1" y="6" fill="rgba(255,255,255,.07)"/>
       </pattern>
-      <pattern id="tp" x="0" y="0" width="140" height="140" patternUnits="userSpaceOnUse">
-        <line x1="0" y1="70" x2="140" y2="70" stroke="rgba(196,168,130,.06)" stroke-width="1"/>
-        <line x1="70" y1="0" x2="70" y2="140" stroke="rgba(196,168,130,.06)" stroke-width="1"/>
+      <!-- Tight linen weave: vertical threads -->
+      <pattern id="weft" x="0" y="0" width="12" height="1" patternUnits="userSpaceOnUse">
+        <rect width="1" height="1" x="0" fill="rgba(196,168,130,.1)"/>
+        <rect width="1" height="1" x="6" fill="rgba(196,168,130,.06)"/>
+      </pattern>
+      <!-- Coarser visible thread grid -->
+      <pattern id="grid" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+        <line x1="0" y1="0" x2="0" y2="24" stroke="rgba(255,255,255,.09)" stroke-width="1"/>
+        <line x1="0" y1="0" x2="24" y2="0" stroke="rgba(196,168,130,.08)" stroke-width="1"/>
+        <line x1="12" y1="0" x2="12" y2="24" stroke="rgba(255,255,255,.04)" stroke-width=".5"/>
+        <line x1="0" y1="12" x2="24" y2="12" stroke="rgba(196,168,130,.04)" stroke-width=".5"/>
       </pattern>
     </defs>
-    <rect width="100%" height="100%" fill="url(#wp)"/>
-    <rect width="100%" height="100%" fill="url(#tp)"/>
-    <!-- Diagonal accent threads -->
-    <line x1="100%" y1="0" x2="55%" y2="100%" stroke="rgba(196,168,130,.1)" stroke-width="1.5"/>
-    <line x1="88%" y1="0" x2="43%" y2="100%" stroke="rgba(196,168,130,.06)" stroke-width="1"/>
-    <line x1="76%" y1="0" x2="31%" y2="100%" stroke="rgba(196,168,130,.04)" stroke-width=".7"/>
-    <!-- Left accent -->
-    <line x1="0" y1="30%" x2="30%" y2="100%" stroke="rgba(255,255,255,.03)" stroke-width="1"/>
+    <!-- Base weave layers -->
+    <rect width="100%" height="100%" fill="url(#warp)"/>
+    <rect width="100%" height="100%" fill="url(#weft)"/>
+    <rect width="100%" height="100%" fill="url(#grid)"/>
+    <!-- Bold diagonal accent threads — like loose warp threads -->
+    <line x1="100%" y1="0" x2="50%" y2="100%" stroke="rgba(196,168,130,.18)" stroke-width="1.5"/>
+    <line x1="90%" y1="0" x2="40%" y2="100%" stroke="rgba(196,168,130,.1)" stroke-width="1"/>
+    <line x1="80%" y1="0" x2="30%" y2="100%" stroke="rgba(196,168,130,.06)" stroke-width=".8"/>
+    <line x1="70%" y1="0" x2="20%" y2="100%" stroke="rgba(255,255,255,.04)" stroke-width=".6"/>
+    <line x1="10%" y1="0" x2="60%" y2="100%" stroke="rgba(255,255,255,.04)" stroke-width=".5"/>
+    <!-- Right side fringe / selvage lines -->
+    <line x1="96%" y1="0" x2="96%" y2="100%" stroke="rgba(196,168,130,.15)" stroke-width="1"/>
+    <line x1="97.5%" y1="0" x2="97.5%" y2="100%" stroke="rgba(196,168,130,.08)" stroke-width=".5"/>
+    <!-- Top edge thread -->
+    <line x1="0" y1="2" x2="100%" y2="2" stroke="rgba(196,168,130,.12)" stroke-width="1"/>
+    <line x1="0" y1="4" x2="100%" y2="4" stroke="rgba(196,168,130,.06)" stroke-width=".5"/>
   </svg>
 
   <div class="hero-in">
     <p class="hero-pre fu">S M &amp; Sons &nbsp;·&nbsp; Est. Delhi, India</p>
-    <h1 class="fu d1">Chan<em>cel</em><br>lor</h1>
+    <h1 class="fu d1">chan<em>cel</em>lor</h1>
     <p class="hero-sub fu d2">Impress Yourself</p>
     <div class="hero-btns fu d3">
       <a href="#hankies" class="btn-inv">Explore Collection</a>
@@ -416,9 +443,21 @@ footer{background:var(--black);padding:2.5rem 5%;
     </div>
   </div>
 
-  <div class="hero-img fu d2">
-    <img src="chan-5-pc-pastel-1%20-%20Copy%20(2).png" alt="Chancellor Solitaire Collection">
-  </div>
+  <!-- Stitched frame border — visible textile detail -->
+  <svg class="hero-frame" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:2rem;pointer-events:none;z-index:2">
+    <!-- corner stitches top-left -->
+    <line x1="0" y1="0" x2="80" y2="0" stroke="rgba(196,168,130,.35)" stroke-width="1" stroke-dasharray="4 6"/>
+    <line x1="0" y1="0" x2="0" y2="80" stroke="rgba(196,168,130,.35)" stroke-width="1" stroke-dasharray="4 6"/>
+    <!-- corner top-right -->
+    <line x1="100%" y1="0" x2="calc(100% - 80px)" y2="0" stroke="rgba(196,168,130,.35)" stroke-width="1" stroke-dasharray="4 6"/>
+    <line x1="100%" y1="0" x2="100%" y2="80" stroke="rgba(196,168,130,.35)" stroke-width="1" stroke-dasharray="4 6"/>
+    <!-- corner bottom-left -->
+    <line x1="0" y1="100%" x2="80" y2="100%" stroke="rgba(196,168,130,.35)" stroke-width="1" stroke-dasharray="4 6"/>
+    <line x1="0" y1="100%" x2="0" y2="calc(100% - 80px)" stroke="rgba(196,168,130,.35)" stroke-width="1" stroke-dasharray="4 6"/>
+    <!-- corner bottom-right -->
+    <line x1="100%" y1="100%" x2="calc(100% - 80px)" y2="100%" stroke="rgba(196,168,130,.35)" stroke-width="1" stroke-dasharray="4 6"/>
+    <line x1="100%" y1="100%" x2="100%" y2="calc(100% - 80px)" stroke="rgba(196,168,130,.35)" stroke-width="1" stroke-dasharray="4 6"/>
+  </svg>
 
   <span class="hero-sidetxt">Handkerchiefs · Towels · Socks</span>
   <div class="hero-vline"></div>
