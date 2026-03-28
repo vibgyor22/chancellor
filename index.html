@@ -3,375 +3,406 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chancellor — Handkerchiefs · Towels · Socks</title>
+<title>chancellor — handkerchiefs · towels · socks</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Cormorant:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --black:#0a0a0a;
-  --ink:#1a1a1a;
-  --off:#f7f4ef;
-  --linen:#ede8df;
-  --sand:#c4a882;
-  --sand-lt:#d9c4a8;
-  --white:#fdfdfc;
-  --mid:#6b6b6b;
-  --light:#b0a898;
+  --ink:#111010;
+  --ink2:#2a2826;
+  --off:#f6f2ec;
+  --linen:#ede6d8;
+  --sand:#b8976a;
+  --sand2:#d4b896;
+  --warm:#faf7f2;
+  --mid:#6e6860;
+  --light:#a8a098;
   --fs:'Cormorant Garamond',Georgia,serif;
+  --fc:'Cormorant',Georgia,serif;
   --fn:'Inter',sans-serif;
 }
 html{scroll-behavior:smooth}
-body{font-family:var(--fn);color:var(--ink);background:var(--white);overflow-x:hidden}
+body{font-family:var(--fn);color:var(--ink);background:var(--warm);overflow-x:hidden}
 
-/* ─── WOVEN TEXTURE ─── */
-/* Visible linen weave on light bg — warp + weft threads */
-.tex-lt::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
+/* ─── LINEN WEAVE TEXTURE MIXIN ─── */
+/* applied via ::before on section containers */
+.wx{position:relative}
+.wx::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
   background-image:
-    repeating-linear-gradient(0deg,  transparent 0,transparent 7px, rgba(0,0,0,.055) 7px, rgba(0,0,0,.055) 8px),
-    repeating-linear-gradient(90deg, transparent 0,transparent 7px, rgba(0,0,0,.04)  7px, rgba(0,0,0,.04)  8px),
-    repeating-linear-gradient(0deg,  transparent 0,transparent 3px, rgba(0,0,0,.02)  3px, rgba(0,0,0,.02)  4px),
-    repeating-linear-gradient(90deg, transparent 0,transparent 3px, rgba(0,0,0,.015) 3px, rgba(0,0,0,.015) 4px)}
-/* Visible weave on dark bg */
-.tex-dk::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
+    repeating-linear-gradient(0deg,  rgba(0,0,0,.0) 0,rgba(0,0,0,.0) 6px, rgba(0,0,0,.04) 6px, rgba(0,0,0,.04) 7px),
+    repeating-linear-gradient(90deg, rgba(0,0,0,.0) 0,rgba(0,0,0,.0) 6px, rgba(0,0,0,.03) 6px, rgba(0,0,0,.03) 7px)}
+.wx-dk::before{
   background-image:
-    repeating-linear-gradient(0deg,  transparent 0,transparent 7px, rgba(255,255,255,.07) 7px, rgba(255,255,255,.07) 8px),
-    repeating-linear-gradient(90deg, transparent 0,transparent 7px, rgba(255,255,255,.05) 7px, rgba(255,255,255,.05) 8px),
-    repeating-linear-gradient(0deg,  transparent 0,transparent 3px, rgba(255,255,255,.03) 3px, rgba(255,255,255,.03) 4px),
-    repeating-linear-gradient(90deg, transparent 0,transparent 3px, rgba(255,255,255,.025)3px, rgba(255,255,255,.025)4px)}
-/* Diagonal twill (herringbone) */
-.tex-tw::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
-  background-image:
-    repeating-linear-gradient(45deg, transparent 0,transparent 10px,rgba(0,0,0,.06) 10px,rgba(0,0,0,.06) 11px),
-    repeating-linear-gradient(-45deg,transparent 0,transparent 10px,rgba(0,0,0,.04) 10px,rgba(0,0,0,.04) 11px)}
-.tex-lt>*,.tex-dk>*,.tex-tw>*{position:relative;z-index:1}
+    repeating-linear-gradient(0deg,  rgba(255,255,255,0) 0,rgba(255,255,255,0) 6px, rgba(255,255,255,.06) 6px, rgba(255,255,255,.06) 7px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0) 0,rgba(255,255,255,0) 6px, rgba(255,255,255,.045) 6px, rgba(255,255,255,.045) 7px)}
+.wx>*,.wx-dk>*{position:relative;z-index:1}
 
 /* ─── NAV ─── */
 nav{position:fixed;top:0;left:0;right:0;z-index:999;
-  padding:2rem 5%;display:flex;align-items:center;justify-content:space-between;
-  transition:all .4s ease}
-nav.s{background:rgba(253,253,252,.96);backdrop-filter:blur(14px);
-  padding:1rem 5%;border-bottom:1px solid rgba(0,0,0,.07)}
-.nav-logo{font-family:var(--fs);font-size:1.6rem;font-weight:400;
-  letter-spacing:.12em;color:var(--white);text-decoration:none;
-  text-transform:lowercase;transition:color .4s}
-nav.s .nav-logo{color:var(--ink)}
-.nav-links{display:flex;gap:2.4rem;list-style:none;align-items:center}
-.nav-links a{font-size:.62rem;font-weight:500;letter-spacing:.22em;
-  text-transform:uppercase;color:rgba(255,255,255,.75);
-  text-decoration:none;transition:color .3s}
-nav.s .nav-links a{color:var(--mid)}
-.nav-links a:hover{color:var(--sand)}
-nav.s .nav-links a:hover{color:var(--ink)}
-.nav-cta{border:1px solid rgba(255,255,255,.4)!important;
-  padding:.4rem 1rem!important;color:rgba(255,255,255,.8)!important;transition:all .3s!important}
-nav.s .nav-cta{border-color:var(--ink)!important;color:var(--ink)!important}
-.nav-cta:hover{background:var(--white)!important;color:var(--ink)!important;
-  border-color:var(--white)!important}
-nav.s .nav-cta:hover{background:var(--ink)!important;color:var(--white)!important}
+  padding:1.8rem 5%;display:flex;align-items:center;justify-content:space-between;
+  transition:all .45s ease}
+nav.s{background:rgba(250,247,242,.96);backdrop-filter:blur(16px);
+  padding:.9rem 5%;border-bottom:1px solid rgba(0,0,0,.06)}
+.nav-logo{font-family:var(--fs);font-size:1.4rem;font-weight:400;
+  letter-spacing:.08em;color:var(--ink);text-decoration:none;transition:opacity .3s}
+.nav-logo:hover{opacity:.6}
+.nav-links{display:flex;gap:2.2rem;list-style:none;align-items:center}
+.nav-links a{font-size:.6rem;font-weight:400;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--mid);text-decoration:none;transition:color .3s}
+.nav-links a:hover{color:var(--ink)}
+.nav-cta{border:1px solid rgba(0,0,0,.2)!important;
+  padding:.38rem .9rem!important;color:var(--ink)!important;
+  letter-spacing:.18em!important;transition:all .3s!important}
+.nav-cta:hover{background:var(--ink)!important;color:var(--warm)!important;
+  border-color:var(--ink)!important}
 .burger{display:none;flex-direction:column;gap:5px;cursor:pointer}
-.burger span{display:block;width:22px;height:1px;background:var(--white);transition:all .3s}
-nav.s .burger span{background:var(--ink)}
+.burger span{display:block;width:22px;height:1px;background:var(--ink);transition:all .3s}
 
 /* ─── HERO ─── */
-.hero{min-height:100vh;background:var(--black);position:relative;
-  display:flex;align-items:center;overflow:hidden}
-.hero-canvas{position:absolute;inset:0;pointer-events:none}
-.hero-in{position:relative;z-index:2;padding:0 5%;width:100%;
-  max-width:1500px;margin:0 auto;padding-top:6rem}
-.hero-pre{font-size:.6rem;letter-spacing:.5em;text-transform:uppercase;
-  color:var(--sand);margin-bottom:1.8rem;display:flex;align-items:center;gap:1.2rem}
-.hero-pre::before{content:'';width:32px;height:1px;background:var(--sand)}
-h1{font-family:var(--fs);font-size:clamp(3.8rem,8.5vw,9rem);
-  font-weight:300;line-height:1;color:var(--white);
-  letter-spacing:.04em;margin-bottom:2rem;
-  white-space:nowrap;text-transform:lowercase}
-h1 em{font-style:italic;color:rgba(255,255,255,.32)}
-.hero-sub{font-family:var(--fs);font-size:clamp(1rem,2vw,1.5rem);
-  font-weight:300;font-style:italic;color:rgba(255,255,255,.4);
-  letter-spacing:.08em;margin-bottom:3.5rem}
-.hero-btns{display:flex;gap:2rem;align-items:center;flex-wrap:wrap}
-.btn-inv{font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;
-  border:1px solid rgba(255,255,255,.3);color:rgba(255,255,255,.8);
-  padding:.9rem 2.2rem;text-decoration:none;transition:all .35s}
-.btn-inv:hover{background:var(--white);color:var(--ink);border-color:var(--white)}
-.btn-ghost{font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;
-  color:rgba(255,255,255,.4);text-decoration:none;
-  border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:.15rem;transition:all .3s}
-.btn-ghost:hover{color:var(--white);border-color:rgba(255,255,255,.6)}
-/* hero-img removed — hero is now purely typographic + textile texture */
-.hero-vline{position:absolute;right:5%;bottom:0;top:0;width:1px;
-  background:linear-gradient(to bottom,transparent,rgba(255,255,255,.08),transparent);
-  z-index:1}
-.hero-scrollind{position:absolute;bottom:2.5rem;left:5%;
-  display:flex;align-items:center;gap:.85rem;z-index:2}
-.sline{width:40px;height:1px;background:rgba(255,255,255,.15);
+.hero{min-height:100vh;background:var(--off);position:relative;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  overflow:hidden}
+
+/* Linen thread canvas */
+.hero-canvas{position:absolute;inset:0;pointer-events:none;z-index:0}
+
+/* Stitched border frame */
+.hero-frame{position:absolute;inset:1.5rem;pointer-events:none;z-index:1;
+  border:1px dashed rgba(0,0,0,.12)}
+.hero-frame-corner{position:absolute;width:16px;height:16px}
+.hero-frame-corner.tl{top:-1px;left:-1px;border-top:2px solid var(--sand);border-left:2px solid var(--sand)}
+.hero-frame-corner.tr{top:-1px;right:-1px;border-top:2px solid var(--sand);border-right:2px solid var(--sand)}
+.hero-frame-corner.bl{bottom:-1px;left:-1px;border-bottom:2px solid var(--sand);border-left:2px solid var(--sand)}
+.hero-frame-corner.br{bottom:-1px;right:-1px;border-bottom:2px solid var(--sand);border-right:2px solid var(--sand)}
+
+.hero-top{position:relative;z-index:2;
+  padding:9rem 5% 0;display:flex;justify-content:space-between;align-items:flex-start}
+.hero-pre{font-family:var(--fn);font-size:.56rem;letter-spacing:.45em;
+  text-transform:uppercase;color:var(--sand);display:flex;align-items:center;gap:.9rem}
+.hero-pre::before{content:'';display:block;width:28px;height:1px;background:var(--sand)}
+.hero-meta{font-family:var(--fn);font-size:.56rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--light);text-align:right;line-height:1.9}
+
+.hero-title-wrap{position:relative;z-index:2;padding:0 5%;margin-top:auto}
+h1.masthead{
+  font-family:var(--fs);
+  font-size:clamp(4rem,11.5vw,11rem);
+  font-weight:300;
+  line-height:.92;
+  letter-spacing:-.01em;
+  color:var(--ink);
+  white-space:nowrap;
+  display:block;
+  text-transform:lowercase;
+}
+h1.masthead em{font-style:italic;color:var(--sand)}
+
+.hero-bottom{position:relative;z-index:2;
+  padding:2rem 5% 3.5rem;
+  display:flex;align-items:flex-end;justify-content:space-between;gap:2rem}
+.hero-tagline{font-family:var(--fs);font-size:clamp(1rem,1.8vw,1.4rem);
+  font-weight:300;font-style:italic;color:var(--mid);letter-spacing:.06em}
+.hero-actions{display:flex;gap:2rem;align-items:center}
+.btn-dark{font-family:var(--fn);font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;
+  background:var(--ink);color:var(--warm);padding:.85rem 2rem;
+  text-decoration:none;transition:all .3s;display:inline-block}
+.btn-dark:hover{background:var(--ink2);transform:translateY(-1px)}
+.btn-line{font-family:var(--fn);font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--mid);text-decoration:none;
+  border-bottom:1px solid rgba(0,0,0,.2);padding-bottom:.1rem;transition:all .3s}
+.btn-line:hover{color:var(--ink);border-color:var(--ink)}
+
+.hero-scrollind{display:flex;align-items:center;gap:.8rem}
+.sline{width:36px;height:1px;background:rgba(0,0,0,.15);
   position:relative;overflow:hidden}
-.sline::after{content:'';position:absolute;top:0;left:-100%;
-  width:100%;height:100%;background:var(--sand);
-  animation:si 2.2s ease-in-out infinite}
-@keyframes si{0%{left:-100%}55%{left:0}100%{left:100%}}
-.stxt{font-size:.56rem;letter-spacing:.35em;text-transform:uppercase;
-  color:rgba(255,255,255,.25)}
-.hero-sidetxt{position:absolute;right:2rem;bottom:6rem;
-  writing-mode:vertical-rl;font-size:.55rem;letter-spacing:.4em;
-  text-transform:uppercase;color:rgba(255,255,255,.18);z-index:2}
+.sline::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;
+  background:var(--sand);animation:sl 2.2s ease-in-out infinite}
+@keyframes sl{0%{left:-100%}55%{left:0}100%{left:100%}}
+.stxt{font-family:var(--fn);font-size:.52rem;letter-spacing:.35em;
+  text-transform:uppercase;color:var(--light)}
 
-/* ─── TICKER STRIP ─── */
-.strip{background:var(--sand);padding:1rem 0;overflow:hidden;
-  display:flex;align-items:center;white-space:nowrap}
-.strip-track{display:flex;gap:3rem;align-items:center;
-  animation:tick 22s linear infinite;padding-right:3rem}
-.strip-track:hover{animation-play-state:paused}
-.si-item{font-size:.58rem;letter-spacing:.35em;text-transform:uppercase;
-  color:var(--black);font-weight:500}
-.si-dot{width:3px;height:3px;background:var(--black);
-  border-radius:50%;opacity:.35;flex-shrink:0}
+/* product image in hero, blends on light bg */
+.hero-img-float{position:absolute;right:5%;bottom:4rem;z-index:3;
+  width:clamp(200px,22vw,340px)}
+.hero-img-float img{width:100%;height:auto;mix-blend-mode:multiply;
+  filter:contrast(1.05)}
+
+/* ─── TICKER ─── */
+.strip{background:var(--ink);padding:.9rem 0;overflow:hidden;white-space:nowrap}
+.strip-track{display:inline-flex;gap:3rem;align-items:center;
+  animation:tick 28s linear infinite}
 @keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-
-/* ─── SECTION UTILITY ─── */
-.label{font-size:.58rem;letter-spacing:.42em;text-transform:uppercase;
-  color:var(--sand);margin-bottom:.9rem}
-.sec-h{font-family:var(--fs);font-size:clamp(2.2rem,4vw,3.6rem);
-  font-weight:300;line-height:1.12}
-.sec-h em{font-style:italic;color:rgba(0,0,0,.35)}
-.sec-h-inv{color:var(--white)}
-.sec-h-inv em{color:rgba(255,255,255,.3)}
+.sit{font-family:var(--fn);font-size:.54rem;letter-spacing:.35em;
+  text-transform:uppercase;color:rgba(255,255,255,.5)}
+.sid{width:2px;height:2px;background:rgba(255,255,255,.2);border-radius:50%;flex-shrink:0}
 
 /* ─── ABOUT ─── */
-.about{padding:9rem 5%;background:var(--off);position:relative}
-.about-grid{max-width:1400px;margin:0 auto;display:grid;
-  grid-template-columns:1fr 1fr;gap:8rem;align-items:center}
-.about-copy .label{color:var(--sand)}
-.about-h{font-family:var(--fs);font-size:clamp(2.4rem,4vw,3.8rem);
-  font-weight:400;line-height:1.12;color:var(--ink);margin-bottom:1.8rem}
+.about{padding:9rem 5%;background:var(--warm);position:relative}
+.about-grid{max-width:1400px;margin:0 auto;
+  display:grid;grid-template-columns:5fr 4fr;gap:10rem;align-items:center}
+.lbl{font-family:var(--fn);font-size:.54rem;letter-spacing:.42em;
+  text-transform:uppercase;color:var(--sand);margin-bottom:.8rem}
+.about-h{font-family:var(--fs);font-size:clamp(2.8rem,4.5vw,4.5rem);
+  font-weight:300;line-height:1.08;color:var(--ink);margin-bottom:2rem}
 .about-h em{font-style:italic;color:var(--sand)}
-.about-p{font-size:.86rem;line-height:1.95;color:var(--mid);margin-bottom:1.1rem}
+.about-p{font-family:var(--fn);font-size:.84rem;line-height:1.95;
+  color:var(--mid);margin-bottom:1rem}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;
-  margin-top:2.8rem;padding-top:2rem;border-top:1px solid rgba(0,0,0,.1)}
-.stn{font-family:var(--fs);font-size:2.5rem;font-weight:300;
+  margin-top:2.5rem;padding-top:2rem;border-top:1px solid rgba(0,0,0,.08)}
+.stn{font-family:var(--fs);font-size:2.6rem;font-weight:300;
   color:var(--ink);line-height:1;margin-bottom:.2rem}
-.stl{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--light)}
-.about-vis{position:relative;padding-bottom:3rem}
-.vis-bg{position:absolute;top:2.5rem;right:-2rem;bottom:0;left:2.5rem;
+.stl{font-family:var(--fn);font-size:.55rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--light)}
+/* Visual side */
+.about-vis{position:relative}
+.vis-back{position:absolute;top:3rem;right:-2rem;bottom:-3rem;left:2rem;
   background:var(--linen);z-index:0}
-.vis-main{position:relative;z-index:1;width:100%;display:block}
-.vis-badge{position:absolute;bottom:0;left:-2rem;
-  width:52%;z-index:2;border:6px solid var(--off)}
+.vis-main{position:relative;z-index:1;width:100%;display:block;
+  mix-blend-mode:multiply}
+.vis-pin{position:absolute;bottom:-2.5rem;left:-2.5rem;width:55%;z-index:2;
+  border:5px solid var(--warm);mix-blend-mode:multiply}
 
 /* ─── CATEGORIES ─── */
-.cats{padding:6rem 5%;background:var(--ink);position:relative}
+.cats{padding:5rem 5%;background:var(--ink);position:relative}
 .cats::before{content:'';position:absolute;inset:0;pointer-events:none;
   background-image:
-    repeating-linear-gradient(0deg,  transparent 0,transparent 7px,rgba(255,255,255,.07) 7px,rgba(255,255,255,.07) 8px),
-    repeating-linear-gradient(90deg, transparent 0,transparent 7px,rgba(255,255,255,.05) 7px,rgba(255,255,255,.05) 8px),
-    repeating-linear-gradient(0deg,  transparent 0,transparent 3px,rgba(255,255,255,.03) 3px,rgba(255,255,255,.03) 4px),
-    repeating-linear-gradient(90deg, transparent 0,transparent 3px,rgba(255,255,255,.025)3px,rgba(255,255,255,.025)4px)}
+    repeating-linear-gradient(0deg,  transparent 0,transparent 6px,rgba(255,255,255,.055) 6px,rgba(255,255,255,.055) 7px),
+    repeating-linear-gradient(90deg, transparent 0,transparent 6px,rgba(255,255,255,.04)  6px,rgba(255,255,255,.04)  7px)}
 .cats-in{max-width:1400px;margin:0 auto;position:relative;z-index:1}
-.cats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:3.5rem}
-.cat{position:relative;aspect-ratio:4/5;overflow:hidden;cursor:pointer}
+.cats-hdr{display:flex;align-items:flex-end;justify-content:space-between;
+  margin-bottom:2.5rem;flex-wrap:wrap;gap:1rem}
+.cats-h{font-family:var(--fs);font-size:clamp(2rem,3.5vw,3rem);
+  font-weight:300;color:var(--warm);letter-spacing:.01em}
+.cats-h em{font-style:italic;color:var(--sand2)}
+.cats-sub{font-family:var(--fn);font-size:.58rem;letter-spacing:.25em;
+  text-transform:uppercase;color:rgba(255,255,255,.3)}
+.cats-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:2px}
+.cat{position:relative;overflow:hidden;cursor:pointer}
+.cat:first-child{aspect-ratio:3/4}
+.cat:not(:first-child){aspect-ratio:2/3}
 .cat-bg{position:absolute;inset:0;background-size:cover;background-position:center;
-  transition:transform .9s cubic-bezier(.25,.46,.45,.94),filter .5s ease;
-  filter:grayscale(60%) brightness(.5)}
-.cat:hover .cat-bg{transform:scale(1.06);filter:grayscale(0%) brightness(.38)}
+  filter:grayscale(55%) brightness(.45);
+  transition:filter .6s ease,transform .9s cubic-bezier(.25,.46,.45,.94)}
+.cat:hover .cat-bg{filter:grayscale(0%) brightness(.38);transform:scale(1.06)}
 .cat-body{position:absolute;inset:0;display:flex;flex-direction:column;
-  justify-content:flex-end;padding:2.2rem;z-index:2}
-.cat-n{font-size:.62rem;letter-spacing:.3em;color:var(--sand);margin-bottom:.4rem}
-.cat-title{font-family:var(--fs);font-size:2rem;font-weight:300;
-  color:var(--white);line-height:1.1;margin-bottom:.7rem}
-.cat-d{font-size:.76rem;line-height:1.7;color:rgba(255,255,255,.5);
-  max-width:230px;transform:translateY(10px);opacity:0;transition:all .45s}
-.cat:hover .cat-d{transform:translateY(0);opacity:1}
-.cat-link{display:inline-flex;align-items:center;gap:.6rem;
-  font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--sand);margin-top:1.2rem;text-decoration:none;
-  transform:translateX(-10px);opacity:0;transition:all .4s .1s}
-.cat:hover .cat-link{transform:translateX(0);opacity:1}
-.cat-link::after{content:'→'}
-/* stitch corner */
-.stitch{position:absolute;top:1.4rem;right:1.4rem;z-index:2;
-  width:28px;height:28px;opacity:.4}
+  justify-content:flex-end;padding:2rem;z-index:2}
+.cat-n{font-family:var(--fn);font-size:.54rem;letter-spacing:.3em;
+  color:var(--sand2);margin-bottom:.35rem}
+.cat-title{font-family:var(--fs);font-size:clamp(1.6rem,2.5vw,2.2rem);
+  font-weight:300;color:var(--warm);line-height:1.1;margin-bottom:.6rem}
+.cat-d{font-family:var(--fn);font-size:.74rem;line-height:1.7;
+  color:rgba(255,255,255,.45);max-width:220px;
+  opacity:0;transform:translateY(8px);transition:all .4s}
+.cat:hover .cat-d{opacity:1;transform:translateY(0)}
+.cat-cta{display:inline-flex;align-items:center;gap:.5rem;margin-top:1rem;
+  font-family:var(--fn);font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--sand2);text-decoration:none;
+  opacity:0;transform:translateX(-8px);transition:all .4s .08s}
+.cat:hover .cat-cta{opacity:1;transform:translateX(0)}
+.cat-cta::after{content:'→'}
+/* corner stitch detail */
+.cat-stitch{position:absolute;top:1.2rem;right:1.2rem;z-index:3;opacity:.5}
 
 /* ─── HANDKERCHIEFS ─── */
-.hankies{padding:8rem 5%;background:var(--white);position:relative}
-.hankies::before{content:'';position:absolute;inset:0;pointer-events:none;
+.hk{padding:8rem 5%;background:var(--off) wx;position:relative}
+.hk::before{content:'';position:absolute;inset:0;pointer-events:none;
   background-image:
-    repeating-linear-gradient(0deg,  transparent 0,transparent 7px,rgba(0,0,0,.055) 7px,rgba(0,0,0,.055) 8px),
-    repeating-linear-gradient(90deg, transparent 0,transparent 7px,rgba(0,0,0,.04)  7px,rgba(0,0,0,.04)  8px),
-    repeating-linear-gradient(0deg,  transparent 0,transparent 3px,rgba(0,0,0,.02)  3px,rgba(0,0,0,.02)  4px),
-    repeating-linear-gradient(90deg, transparent 0,transparent 3px,rgba(0,0,0,.015) 3px,rgba(0,0,0,.015) 4px)}
+    repeating-linear-gradient(0deg,  transparent 0,transparent 6px,rgba(0,0,0,.035) 6px,rgba(0,0,0,.035) 7px),
+    repeating-linear-gradient(90deg, transparent 0,transparent 6px,rgba(0,0,0,.025) 6px,rgba(0,0,0,.025) 7px)}
 .hk-in{max-width:1400px;margin:0 auto;position:relative;z-index:1}
 .hk-hdr{display:flex;align-items:flex-end;justify-content:space-between;
-  flex-wrap:wrap;gap:1.5rem;margin-bottom:3rem}
-.hk-title{font-family:var(--fs);font-size:clamp(2rem,4vw,3.2rem);
+  margin-bottom:3rem;flex-wrap:wrap;gap:1.5rem;
+  border-bottom:1px solid rgba(0,0,0,.08);padding-bottom:2rem}
+.hk-h{font-family:var(--fs);font-size:clamp(2.2rem,4vw,3.5rem);
   font-weight:300;color:var(--ink)}
-.hk-title em{font-style:italic;color:var(--sand)}
-.filters{display:flex;border-bottom:1px solid rgba(0,0,0,.1)}
-.ft{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;
-  padding:.6rem 1.2rem;cursor:pointer;color:var(--light);
-  border:none;border-bottom:2px solid transparent;margin-bottom:-1px;
-  background:none;transition:all .3s;font-family:var(--fn)}
+.hk-h em{font-style:italic;color:var(--sand)}
+.filters{display:flex;gap:0}
+.ft{font-family:var(--fn);font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;
+  padding:.55rem 1.1rem;cursor:pointer;color:var(--light);
+  border:none;border-bottom:2px solid transparent;margin-bottom:0;
+  background:none;transition:all .3s}
 .ft.on{color:var(--ink);border-bottom-color:var(--sand)}
 .ft:hover:not(.on){color:var(--ink)}
-.pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem}
+
+/* Editorial product grid — asymmetric */
+.hk-grid{display:grid;
+  grid-template-columns:1.4fr 1fr 1fr 1fr;
+  grid-template-rows:auto auto;
+  gap:1rem}
 .pc{position:relative}
 .pc.hide{display:none}
-.pc-img{background:var(--linen);aspect-ratio:3/4;overflow:hidden;margin-bottom:.7rem;position:relative}
+.pc-img{background:var(--linen);overflow:hidden;margin-bottom:.65rem;position:relative}
 .pc-img img{width:100%;height:100%;object-fit:cover;mix-blend-mode:multiply;
-  transition:transform .6s cubic-bezier(.25,.46,.45,.94)}
-.pc:hover .pc-img img{transform:scale(1.05)}
-.pc-ov{position:absolute;inset:0;
-  background:rgba(0,0,0,0);transition:background .35s}
-.pc:hover .pc-ov{background:rgba(0,0,0,.08)}
-.pc.tall{grid-row:span 2}
-.pc.tall .pc-img{aspect-ratio:unset;height:100%;min-height:450px}
-.pc-name{font-family:var(--fs);font-size:.95rem;color:var(--ink);margin-bottom:.15rem}
-.pc-type{font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--light)}
+  transition:transform .65s cubic-bezier(.25,.46,.45,.94)}
+.pc:hover .pc-img img{transform:scale(1.04)}
+.pc.feat{grid-row:span 2}
+.pc.feat .pc-img{aspect-ratio:2/3;height:100%}
+.pc:not(.feat) .pc-img{aspect-ratio:3/4}
+.pc-name{font-family:var(--fs);font-size:.92rem;color:var(--ink);margin-bottom:.12rem}
+.pc-type{font-family:var(--fn);font-size:.56rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--light)}
 
 /* ─── QUOTE ─── */
-.quote{padding:7rem 5%;background:var(--linen);position:relative;overflow:hidden}
-.quote::before{content:'';position:absolute;inset:0;pointer-events:none;
+.qt{padding:7rem 5%;background:var(--linen);position:relative;overflow:hidden}
+.qt::before{content:'';position:absolute;inset:0;pointer-events:none;
   background-image:
-    repeating-linear-gradient(45deg,transparent 0,transparent 16px,rgba(0,0,0,.04) 16px,rgba(0,0,0,.04) 17px),
-    repeating-linear-gradient(-45deg,transparent 0,transparent 16px,rgba(0,0,0,.04) 16px,rgba(0,0,0,.04) 17px)}
-.quote-in{max-width:820px;margin:0 auto;text-align:center;position:relative;z-index:1}
-.orn{display:flex;align-items:center;justify-content:center;gap:.9rem;margin:1.5rem 0}
-.ol{height:1px;width:50px;background:var(--sand);opacity:.5}
-.od{width:5px;height:5px;background:var(--sand);transform:rotate(45deg);opacity:.65}
-.qmark{font-family:var(--fs);font-size:5rem;line-height:.4;
-  color:var(--sand);display:block;margin-bottom:1.2rem;opacity:.45}
-.qtxt{font-family:var(--fs);font-size:clamp(1.7rem,3vw,2.7rem);
-  font-weight:300;font-style:italic;color:var(--ink);line-height:1.45;margin-bottom:1.5rem}
-.qattr{font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--light)}
+    repeating-linear-gradient(45deg, transparent 0,transparent 15px,rgba(0,0,0,.04) 15px,rgba(0,0,0,.04) 16px),
+    repeating-linear-gradient(-45deg,transparent 0,transparent 15px,rgba(0,0,0,.03) 15px,rgba(0,0,0,.03) 16px)}
+.qt-in{max-width:780px;margin:0 auto;text-align:center;position:relative;z-index:1}
+.orn{display:flex;align-items:center;justify-content:center;gap:.8rem;margin:1.2rem 0}
+.ol{width:48px;height:1px;background:var(--sand);opacity:.5}
+.od{width:4px;height:4px;background:var(--sand);transform:rotate(45deg);opacity:.7}
+.qm{font-family:var(--fs);font-size:4.5rem;line-height:.3;color:var(--sand);
+  display:block;margin-bottom:1.2rem;opacity:.4}
+.qtxt{font-family:var(--fs);font-size:clamp(1.6rem,3vw,2.6rem);
+  font-weight:300;font-style:italic;color:var(--ink);
+  line-height:1.45;margin-bottom:1.5rem}
+.qattr{font-family:var(--fn);font-size:.54rem;letter-spacing:.3em;
+  text-transform:uppercase;color:var(--light)}
 
 /* ─── TOWELS ─── */
-.towels{padding:8rem 5%;background:var(--off)}
-.twl-in{max-width:1400px;margin:0 auto}
-.twl-grid{display:grid;grid-template-columns:1.2fr .85fr .85fr 1.2fr;
-  gap:1.2rem;margin-top:3rem;align-items:start}
-.tw{overflow:hidden}
-.tw:nth-child(2){margin-top:5rem}
-.tw:nth-child(4){margin-top:5rem}
-.tw img{width:100%;height:auto;display:block;
-  transition:transform .6s ease,filter .4s ease;filter:brightness(.95) saturate(.9)}
-.tw:hover img{transform:scale(1.04);filter:brightness(1) saturate(1.05)}
-.tw-lbl{padding:.6rem 0 0}
-.tw-name{font-family:var(--fs);font-size:.92rem;color:var(--ink)}
-.tw-spec{font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--light);margin-top:.15rem}
-.tw-span{grid-column:2/4;margin-top:0!important}
+.tw-sec{padding:8rem 5%;background:var(--warm)}
+.tw-in{max-width:1400px;margin:0 auto}
+.tw-intro{display:flex;align-items:flex-end;justify-content:space-between;
+  margin-bottom:3rem;gap:2rem;flex-wrap:wrap}
+.tw-desc{max-width:380px;font-family:var(--fn);font-size:.84rem;
+  line-height:1.85;color:var(--mid);margin-top:.8rem}
 
-/* ─── SOCKS ─── */
-.socks{padding:8rem 5%;background:var(--black);position:relative;overflow:hidden}
-.socks::before{content:'';position:absolute;inset:0;pointer-events:none;
+/* Magazine-style mosaic */
+.tw-mosaic{display:grid;
+  grid-template-columns:1.1fr 1fr 1fr 1.1fr;
+  grid-template-rows:auto auto;
+  gap:1rem}
+.tw-item{overflow:hidden;cursor:pointer}
+.tw-item:nth-child(2){margin-top:4.5rem}
+.tw-item:nth-child(4){margin-top:4.5rem}
+.tw-item img{width:100%;height:auto;display:block;
+  filter:saturate(.88);
+  transition:transform .65s ease,filter .4s}
+.tw-item:hover img{transform:scale(1.04);filter:saturate(1)}
+.tw-lbl{padding:.55rem 0 0}
+.tw-name{font-family:var(--fs);font-size:.9rem;color:var(--ink)}
+.tw-spec{font-family:var(--fn);font-size:.55rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--light);margin-top:.1rem}
+/* wide item spanning middle 2 cols */
+.tw-wide{grid-column:2/4;margin-top:0!important}
+
+/* ─── FULL-BLEED EDITORIAL ─── */
+.editorial{padding:0;background:var(--ink);position:relative;overflow:hidden}
+.editorial::before{content:'';position:absolute;inset:0;pointer-events:none;
   background-image:
-    repeating-linear-gradient(0deg,  transparent 0,transparent 7px,rgba(255,255,255,.07) 7px,rgba(255,255,255,.07) 8px),
-    repeating-linear-gradient(90deg, transparent 0,transparent 7px,rgba(255,255,255,.05) 7px,rgba(255,255,255,.05) 8px),
-    repeating-linear-gradient(0deg,  transparent 0,transparent 3px,rgba(255,255,255,.03) 3px,rgba(255,255,255,.03) 4px),
-    repeating-linear-gradient(90deg, transparent 0,transparent 3px,rgba(255,255,255,.025)3px,rgba(255,255,255,.025)4px)}
-.socks-in{max-width:1400px;margin:0 auto;position:relative;z-index:1;
-  display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
-.sk-title{font-family:var(--fs);font-size:clamp(2.5rem,4vw,4rem);
-  font-weight:300;color:var(--white);line-height:1.2;margin:1rem 0 1.5rem}
-.sk-title em{font-style:italic;color:rgba(255,255,255,.3)}
-.sk-desc{font-size:.85rem;line-height:1.95;
-  color:rgba(255,255,255,.45);margin-bottom:2.5rem}
-.sk-feats{list-style:none;display:flex;flex-direction:column;gap:.7rem}
-.sf{display:flex;align-items:center;gap:1rem;
-  font-size:.76rem;color:rgba(255,255,255,.6)}
-.sf::before{content:'';display:block;width:16px;height:1px;
-  background:var(--sand);flex-shrink:0}
-.sk-imgs{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
-.ski{overflow:hidden;background:rgba(255,255,255,.04)}
-.ski img{width:100%;height:100%;object-fit:cover;
-  transition:transform .55s ease,filter .4s;filter:grayscale(20%)}
-.ski:hover img{transform:scale(1.05);filter:grayscale(0%)}
-.ski.w2{grid-column:span 2;aspect-ratio:16/8}
-.ski.sq{aspect-ratio:1}
+    repeating-linear-gradient(0deg,  transparent 0,transparent 6px,rgba(255,255,255,.05) 6px,rgba(255,255,255,.05) 7px),
+    repeating-linear-gradient(90deg, transparent 0,transparent 6px,rgba(255,255,255,.035) 6px,rgba(255,255,255,.035) 7px)}
+.ed-grid{display:grid;grid-template-columns:1fr 1fr;min-height:70vh;position:relative;z-index:1}
+.ed-text{padding:7rem 6rem 7rem 5%;display:flex;flex-direction:column;justify-content:center}
+.ed-label{font-family:var(--fn);font-size:.54rem;letter-spacing:.42em;
+  text-transform:uppercase;color:var(--sand2);margin-bottom:.9rem}
+.ed-h{font-family:var(--fs);font-size:clamp(2.4rem,4vw,4rem);
+  font-weight:300;color:var(--warm);line-height:1.15;margin-bottom:1.5rem}
+.ed-h em{font-style:italic;color:rgba(255,255,255,.3)}
+.ed-p{font-family:var(--fn);font-size:.83rem;line-height:1.9;
+  color:rgba(255,255,255,.45);margin-bottom:2.2rem}
+.ed-feats{list-style:none;display:flex;flex-direction:column;gap:.65rem;margin-bottom:2.5rem}
+.ef{display:flex;align-items:center;gap:.9rem;font-family:var(--fn);
+  font-size:.74rem;color:rgba(255,255,255,.55)}
+.ef::before{content:'';display:block;width:14px;height:1px;
+  background:var(--sand2);flex-shrink:0}
+.ed-imgs{position:relative;overflow:hidden}
+.ed-imgs-grid{display:grid;grid-template-columns:1fr 1fr;
+  grid-template-rows:1fr 1fr;height:100%}
+.edi{overflow:hidden}
+.edi img{width:100%;height:100%;object-fit:cover;
+  filter:grayscale(15%);transition:transform .6s,filter .4s}
+.edi:hover img{transform:scale(1.05);filter:grayscale(0%)}
 
 /* ─── CONTACT ─── */
-.contact{padding:8rem 5%;background:var(--ink);position:relative;overflow:hidden}
-.contact::before{content:'';position:absolute;inset:0;pointer-events:none;
+.con{padding:8rem 5%;background:var(--ink2);position:relative;overflow:hidden}
+.con::before{content:'';position:absolute;inset:0;pointer-events:none;
   background-image:
-    repeating-linear-gradient(0deg,  transparent 0,transparent 7px,rgba(255,255,255,.07) 7px,rgba(255,255,255,.07) 8px),
-    repeating-linear-gradient(90deg, transparent 0,transparent 7px,rgba(255,255,255,.05) 7px,rgba(255,255,255,.05) 8px),
-    repeating-linear-gradient(0deg,  transparent 0,transparent 3px,rgba(255,255,255,.03) 3px,rgba(255,255,255,.03) 4px),
-    repeating-linear-gradient(90deg, transparent 0,transparent 3px,rgba(255,255,255,.025)3px,rgba(255,255,255,.025)4px)}
+    repeating-linear-gradient(0deg,  transparent 0,transparent 6px,rgba(255,255,255,.05) 6px,rgba(255,255,255,.05) 7px),
+    repeating-linear-gradient(90deg, transparent 0,transparent 6px,rgba(255,255,255,.035) 6px,rgba(255,255,255,.035) 7px)}
 .con-in{max-width:1400px;margin:0 auto;position:relative;z-index:1;
-  display:grid;grid-template-columns:1fr 1.1fr;gap:6rem}
-.con-title{font-family:var(--fs);font-size:clamp(2.5rem,4vw,4rem);
-  font-weight:300;color:var(--white);line-height:1.2;margin:1rem 0 2.5rem}
-.con-title em{font-style:italic;color:rgba(255,255,255,.3)}
-.cdets{display:flex;flex-direction:column;gap:2rem}
-.cdi{display:flex;gap:1.3rem;align-items:flex-start}
-.cdi-ico{width:32px;height:32px;border:1px solid rgba(196,168,130,.3);
+  display:grid;grid-template-columns:1fr 1.1fr;gap:7rem}
+.con-h{font-family:var(--fs);font-size:clamp(2.5rem,4vw,4rem);
+  font-weight:300;color:var(--warm);line-height:1.15;margin:1rem 0 2.5rem}
+.con-h em{font-style:italic;color:rgba(255,255,255,.28)}
+.cdets{display:flex;flex-direction:column;gap:1.8rem}
+.cdi{display:flex;gap:1.2rem;align-items:flex-start}
+.cdi-ico{width:30px;height:30px;border:1px solid rgba(184,151,106,.3);
   display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem}
-.cdi-ico svg{width:12px;height:12px;stroke:var(--sand);fill:none;stroke-width:1.5}
-.cdi-lbl{font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;
-  color:var(--sand);margin-bottom:.3rem}
-.cdi-val{font-size:.82rem;color:rgba(255,255,255,.6);line-height:1.65}
-.cform{display:flex;flex-direction:column;gap:1rem}
-.frow{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
-.fg{display:flex;flex-direction:column;gap:.3rem}
-.fl{font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;
-  color:rgba(255,255,255,.35)}
-.fi,.fta{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
-  color:var(--white);padding:.7rem .85rem;font-family:var(--fn);
-  font-size:.83rem;outline:none;transition:border-color .3s;resize:none}
-.fi::placeholder,.fta::placeholder{color:rgba(255,255,255,.2)}
-.fi:focus,.fta:focus{border-color:var(--sand)}
-.fta{height:105px}
-.fsub{background:var(--white);color:var(--ink);border:none;
-  padding:.85rem 2.2rem;font-family:var(--fn);font-size:.6rem;
-  letter-spacing:.25em;text-transform:uppercase;cursor:pointer;
-  font-weight:500;transition:all .3s;align-self:flex-start}
-.fsub:hover{background:var(--sand);color:var(--black)}
+.cdi-ico svg{width:11px;height:11px;stroke:var(--sand2);fill:none;stroke-width:1.5}
+.cdi-lbl{font-family:var(--fn);font-size:.52rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--sand2);margin-bottom:.28rem}
+.cdi-val{font-family:var(--fn);font-size:.8rem;color:rgba(255,255,255,.55);line-height:1.7}
+.cform{display:flex;flex-direction:column;gap:.9rem}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.fg{display:flex;flex-direction:column;gap:.28rem}
+.fl{font-family:var(--fn);font-size:.52rem;letter-spacing:.2em;
+  text-transform:uppercase;color:rgba(255,255,255,.3)}
+.fi,.fta{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);
+  color:var(--warm);padding:.68rem .8rem;font-family:var(--fn);
+  font-size:.82rem;outline:none;transition:border-color .3s;resize:none}
+.fi::placeholder,.fta::placeholder{color:rgba(255,255,255,.18)}
+.fi:focus,.fta:focus{border-color:var(--sand2)}
+.fta{height:100px}
+.fsub{background:var(--warm);color:var(--ink);border:none;
+  padding:.82rem 2rem;font-family:var(--fn);font-size:.58rem;
+  letter-spacing:.22em;text-transform:uppercase;cursor:pointer;
+  font-weight:500;transition:all .3s;align-self:flex-start;margin-top:.3rem}
+.fsub:hover{background:var(--sand2);color:var(--ink)}
 
 /* ─── FOOTER ─── */
-footer{background:var(--black);padding:2.5rem 5%;
-  border-top:1px solid rgba(255,255,255,.07)}
-.foot-in{max-width:1400px;margin:0 auto;
+footer{background:var(--ink);padding:2.2rem 5%;
+  border-top:1px solid rgba(255,255,255,.06)}
+.foot{max-width:1400px;margin:0 auto;
   display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
-.foot-logo{font-family:var(--fs);font-size:1.1rem;
-  letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.35)}
-.foot-c{font-size:.56rem;letter-spacing:.28em;text-transform:uppercase;
-  color:rgba(255,255,255,.2)}
-.foot-r{font-size:.58rem;letter-spacing:.1em;
-  color:rgba(255,255,255,.2);text-align:right;line-height:1.6}
+.foot-logo{font-family:var(--fs);font-size:1.05rem;letter-spacing:.1em;
+  color:rgba(255,255,255,.35)}
+.foot-c{font-family:var(--fn);font-size:.52rem;letter-spacing:.28em;
+  text-transform:uppercase;color:rgba(255,255,255,.2)}
+.foot-r{font-family:var(--fn);font-size:.56rem;color:rgba(255,255,255,.2);
+  text-align:right;line-height:1.7}
 
-/* ─── REVEAL ANIM ─── */
-.fu{opacity:0;transform:translateY(26px);
+/* ─── REVEAL ─── */
+.fu{opacity:0;transform:translateY(22px);
   transition:opacity .75s ease,transform .75s ease}
 .fu.vis{opacity:1;transform:translateY(0)}
-.d1{transition-delay:.12s}.d2{transition-delay:.22s}
-.d3{transition-delay:.34s}.d4{transition-delay:.46s}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}
+.d3{transition-delay:.32s}.d4{transition-delay:.44s}
 
 /* ─── RESPONSIVE ─── */
 @media(max-width:1060px){
-  .about-grid,.con-in,.socks-in{grid-template-columns:1fr;gap:3.5rem}
-  .vis-badge{display:none}
-  .cats-grid{grid-template-columns:1fr;gap:2px}
-  .cat{aspect-ratio:16/9}
-  .pgrid{grid-template-columns:repeat(2,1fr)}
-  .pc.tall{grid-row:auto}.pc.tall .pc-img{min-height:unset;aspect-ratio:3/4}
-  .twl-grid{grid-template-columns:1fr 1fr}
-  .tw:nth-child(2),.tw:nth-child(4){margin-top:0}
-  .tw-span{grid-column:span 1}
+  .about-grid,.con-in{grid-template-columns:1fr;gap:3.5rem}
+  .vis-pin{display:none}
+  .cats-grid{grid-template-columns:1fr 1fr;gap:2px}
+  .cat:first-child{grid-column:span 2;aspect-ratio:16/8}
+  .hk-grid{grid-template-columns:1fr 1fr}
+  .pc.feat{grid-row:auto}.pc.feat .pc-img{height:unset;aspect-ratio:3/4}
+  .tw-mosaic{grid-template-columns:1fr 1fr}
+  .tw-item:nth-child(2),.tw-item:nth-child(4){margin-top:0}
+  .tw-wide{grid-column:span 1}
+  .ed-grid{grid-template-columns:1fr}
+  .ed-imgs{min-height:50vw}
 }
 @media(max-width:680px){
-  nav,nav.s{padding:1.2rem 4%}
-  .nav-links{display:none}.nav-links.open{display:flex;flex-direction:column;
-    position:fixed;inset:0;background:var(--black);align-items:center;
-    justify-content:center;gap:2rem;z-index:998}
-  .nav-links.open a{font-size:1rem}
+  nav,nav.s{padding:1.1rem 4%}
+  .nav-links{display:none}
+  .nav-links.open{display:flex;flex-direction:column;position:fixed;inset:0;
+    background:var(--warm);align-items:center;justify-content:center;
+    gap:2rem;z-index:998}
+  .nav-links.open a{font-size:1rem;color:var(--ink)}
   .burger{display:flex}
-  .hero-img,.hero-sidetxt{display:none}
-  .strip-track{animation-duration:14s}
-  .pgrid{grid-template-columns:1fr 1fr}
-  .frow{grid-template-columns:1fr}
+  h1.masthead{font-size:clamp(2.8rem,11.5vw,5rem);white-space:normal}
+  .hero-img-float{display:none}
+  .hero-bottom{flex-direction:column;align-items:flex-start;gap:1.5rem}
+  .hk-grid{grid-template-columns:1fr 1fr}
   .hk-hdr{flex-direction:column;align-items:flex-start}
-  .foot-in{flex-direction:column;align-items:center;text-align:center}
+  .cats-grid{grid-template-columns:1fr}
+  .cat:first-child{grid-column:auto;aspect-ratio:16/9}
+  .frow{grid-template-columns:1fr}
+  .foot{flex-direction:column;align-items:center;text-align:center}
   .foot-r{text-align:center}
 }
 </style>
@@ -380,13 +411,13 @@ footer{background:var(--black);padding:2.5rem 5%;
 
 <!-- NAV -->
 <nav id="nav">
-  <a href="#" class="nav-logo">Chancellor</a>
+  <a href="#" class="nav-logo">chancellor</a>
   <ul class="nav-links" id="navlinks">
-    <li><a href="#hankies" onclick="closeMenu()">Handkerchiefs</a></li>
-    <li><a href="#towels" onclick="closeMenu()">Towels</a></li>
-    <li><a href="#socks" onclick="closeMenu()">Socks</a></li>
-    <li><a href="#about" onclick="closeMenu()">About</a></li>
-    <li><a href="#contact" class="nav-cta" onclick="closeMenu()">Contact</a></li>
+    <li><a href="#hankies" onclick="closeMenu()">handkerchiefs</a></li>
+    <li><a href="#towels" onclick="closeMenu()">towels</a></li>
+    <li><a href="#socks" onclick="closeMenu()">socks</a></li>
+    <li><a href="#about" onclick="closeMenu()">about</a></li>
+    <li><a href="#contact" class="nav-cta" onclick="closeMenu()">contact</a></li>
   </ul>
   <div class="burger" onclick="toggleMenu()">
     <span></span><span></span><span></span>
@@ -395,116 +426,115 @@ footer{background:var(--black);padding:2.5rem 5%;
 
 <!-- HERO -->
 <section class="hero" id="home">
+
+  <!-- Thread canvas SVG -->
   <svg class="hero-canvas" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
     <defs>
-      <!-- Tight linen weave: horizontal threads -->
-      <pattern id="warp" x="0" y="0" width="1" height="12" patternUnits="userSpaceOnUse">
-        <rect width="1" height="1" y="0" fill="rgba(255,255,255,.13)"/>
-        <rect width="1" height="1" y="6" fill="rgba(255,255,255,.07)"/>
+      <pattern id="warp" x="0" y="0" width="8" height="1" patternUnits="userSpaceOnUse">
+        <rect x="0" width="1" height="1" fill="rgba(0,0,0,.055)"/>
+        <rect x="4" width="1" height="1" fill="rgba(0,0,0,.03)"/>
       </pattern>
-      <!-- Tight linen weave: vertical threads -->
-      <pattern id="weft" x="0" y="0" width="12" height="1" patternUnits="userSpaceOnUse">
-        <rect width="1" height="1" x="0" fill="rgba(196,168,130,.1)"/>
-        <rect width="1" height="1" x="6" fill="rgba(196,168,130,.06)"/>
+      <pattern id="weft" x="0" y="0" width="1" height="8" patternUnits="userSpaceOnUse">
+        <rect y="0" width="1" height="1" fill="rgba(184,151,106,.055)"/>
+        <rect y="4" width="1" height="1" fill="rgba(184,151,106,.03)"/>
       </pattern>
-      <!-- Coarser visible thread grid -->
-      <pattern id="grid" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
-        <line x1="0" y1="0" x2="0" y2="24" stroke="rgba(255,255,255,.09)" stroke-width="1"/>
-        <line x1="0" y1="0" x2="24" y2="0" stroke="rgba(196,168,130,.08)" stroke-width="1"/>
-        <line x1="12" y1="0" x2="12" y2="24" stroke="rgba(255,255,255,.04)" stroke-width=".5"/>
-        <line x1="0" y1="12" x2="24" y2="12" stroke="rgba(196,168,130,.04)" stroke-width=".5"/>
+      <pattern id="grid" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
+        <line x1="0" y1="0" x2="0" y2="32" stroke="rgba(0,0,0,.07)" stroke-width="1"/>
+        <line x1="0" y1="0" x2="32" y2="0" stroke="rgba(184,151,106,.06)" stroke-width="1"/>
+        <line x1="16" y1="0" x2="16" y2="32" stroke="rgba(0,0,0,.03)" stroke-width=".5"/>
+        <line x1="0" y1="16" x2="32" y2="16" stroke="rgba(184,151,106,.03)" stroke-width=".5"/>
       </pattern>
     </defs>
-    <!-- Base weave layers -->
     <rect width="100%" height="100%" fill="url(#warp)"/>
     <rect width="100%" height="100%" fill="url(#weft)"/>
     <rect width="100%" height="100%" fill="url(#grid)"/>
-    <!-- Bold diagonal accent threads — like loose warp threads -->
-    <line x1="100%" y1="0" x2="50%" y2="100%" stroke="rgba(196,168,130,.18)" stroke-width="1.5"/>
-    <line x1="90%" y1="0" x2="40%" y2="100%" stroke="rgba(196,168,130,.1)" stroke-width="1"/>
-    <line x1="80%" y1="0" x2="30%" y2="100%" stroke="rgba(196,168,130,.06)" stroke-width=".8"/>
-    <line x1="70%" y1="0" x2="20%" y2="100%" stroke="rgba(255,255,255,.04)" stroke-width=".6"/>
-    <line x1="10%" y1="0" x2="60%" y2="100%" stroke="rgba(255,255,255,.04)" stroke-width=".5"/>
-    <!-- Right side fringe / selvage lines -->
-    <line x1="96%" y1="0" x2="96%" y2="100%" stroke="rgba(196,168,130,.15)" stroke-width="1"/>
-    <line x1="97.5%" y1="0" x2="97.5%" y2="100%" stroke="rgba(196,168,130,.08)" stroke-width=".5"/>
-    <!-- Top edge thread -->
-    <line x1="0" y1="2" x2="100%" y2="2" stroke="rgba(196,168,130,.12)" stroke-width="1"/>
-    <line x1="0" y1="4" x2="100%" y2="4" stroke="rgba(196,168,130,.06)" stroke-width=".5"/>
+    <!-- diagonal accent threads -->
+    <line x1="85%" y1="0" x2="100%" y2="40%" stroke="rgba(184,151,106,.18)" stroke-width="1.5"/>
+    <line x1="72%" y1="0" x2="100%" y2="80%" stroke="rgba(184,151,106,.1)" stroke-width="1"/>
+    <line x1="60%" y1="0" x2="100%" y2="100%" stroke="rgba(0,0,0,.05)" stroke-width=".8"/>
+    <line x1="0" y1="80%" x2="40%" y2="100%" stroke="rgba(0,0,0,.04)" stroke-width=".6"/>
+    <!-- selvage right edge -->
+    <line x1="97%" y1="0" x2="97%" y2="100%" stroke="rgba(184,151,106,.2)" stroke-width="1.2"/>
+    <line x1="98.5%" y1="0" x2="98.5%" y2="100%" stroke="rgba(184,151,106,.1)" stroke-width=".6"/>
+    <!-- header threads top -->
+    <line x1="0" y1="2" x2="100%" y2="2" stroke="rgba(184,151,106,.15)" stroke-width="1.2"/>
+    <line x1="0" y1="5" x2="100%" y2="5" stroke="rgba(184,151,106,.07)" stroke-width=".6"/>
   </svg>
 
-  <div class="hero-in">
-    <p class="hero-pre fu">S M &amp; Sons &nbsp;·&nbsp; Est. Delhi, India</p>
-    <h1 class="fu d1">chan<em>cel</em>lor</h1>
-    <p class="hero-sub fu d2">Impress Yourself</p>
-    <div class="hero-btns fu d3">
-      <a href="#hankies" class="btn-inv">Explore Collection</a>
-      <a href="#about" class="btn-ghost">Our Heritage</a>
+  <!-- Stitched border frame -->
+  <div class="hero-frame">
+    <div class="hero-frame-corner tl"></div>
+    <div class="hero-frame-corner tr"></div>
+    <div class="hero-frame-corner bl"></div>
+    <div class="hero-frame-corner br"></div>
+  </div>
+
+  <div class="hero-top fu">
+    <p class="hero-pre">S M &amp; Sons &nbsp;·&nbsp; Est. Delhi, India</p>
+    <p class="hero-meta">handkerchiefs · towels · socks<br>manufacturer &amp; exporter</p>
+  </div>
+
+  <div class="hero-title-wrap">
+    <h1 class="masthead fu d1">chan<em>cel</em>lor</h1>
+  </div>
+
+  <!-- Product image blends on light bg via mix-blend-mode: multiply -->
+  <div class="hero-img-float fu d2">
+    <img src="chan-5-pc-pastel-1%20-%20Copy%20(2).png" alt="Chancellor Solitaire Collection">
+  </div>
+
+  <div class="hero-bottom">
+    <p class="hero-tagline fu d2"><em>impress yourself</em></p>
+    <div class="hero-actions fu d3">
+      <a href="#hankies" class="btn-dark">explore collection</a>
+      <a href="#about" class="btn-line">our heritage</a>
+    </div>
+    <div class="hero-scrollind fu d4">
+      <div class="sline"></div>
+      <span class="stxt">scroll</span>
     </div>
   </div>
 
-  <!-- Stitched frame border — visible textile detail -->
-  <svg class="hero-frame" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:2rem;pointer-events:none;z-index:2">
-    <!-- corner stitches top-left -->
-    <line x1="0" y1="0" x2="80" y2="0" stroke="rgba(196,168,130,.35)" stroke-width="1" stroke-dasharray="4 6"/>
-    <line x1="0" y1="0" x2="0" y2="80" stroke="rgba(196,168,130,.35)" stroke-width="1" stroke-dasharray="4 6"/>
-    <!-- corner top-right -->
-    <line x1="100%" y1="0" x2="calc(100% - 80px)" y2="0" stroke="rgba(196,168,130,.35)" stroke-width="1" stroke-dasharray="4 6"/>
-    <line x1="100%" y1="0" x2="100%" y2="80" stroke="rgba(196,168,130,.35)" stroke-width="1" stroke-dasharray="4 6"/>
-    <!-- corner bottom-left -->
-    <line x1="0" y1="100%" x2="80" y2="100%" stroke="rgba(196,168,130,.35)" stroke-width="1" stroke-dasharray="4 6"/>
-    <line x1="0" y1="100%" x2="0" y2="calc(100% - 80px)" stroke="rgba(196,168,130,.35)" stroke-width="1" stroke-dasharray="4 6"/>
-    <!-- corner bottom-right -->
-    <line x1="100%" y1="100%" x2="calc(100% - 80px)" y2="100%" stroke="rgba(196,168,130,.35)" stroke-width="1" stroke-dasharray="4 6"/>
-    <line x1="100%" y1="100%" x2="100%" y2="calc(100% - 80px)" stroke="rgba(196,168,130,.35)" stroke-width="1" stroke-dasharray="4 6"/>
-  </svg>
-
-  <span class="hero-sidetxt">Handkerchiefs · Towels · Socks</span>
-  <div class="hero-vline"></div>
-  <div class="hero-scrollind">
-    <div class="sline"></div>
-    <span class="stxt">Scroll</span>
-  </div>
 </section>
 
-<!-- STRIP -->
+<!-- TICKER -->
 <div class="strip">
   <div class="strip-track">
-    <span class="si-item">All Cotton</span><span class="si-dot"></span>
-    <span class="si-item">Premium Quality</span><span class="si-dot"></span>
-    <span class="si-item">Handkerchiefs</span><span class="si-dot"></span>
-    <span class="si-item">Towels</span><span class="si-dot"></span>
-    <span class="si-item">Socks</span><span class="si-dot"></span>
-    <span class="si-item">Manufacturer &amp; Exporter</span><span class="si-dot"></span>
-    <span class="si-item">Delhi, India</span><span class="si-dot"></span>
-    <span class="si-item">All Cotton</span><span class="si-dot"></span>
-    <span class="si-item">Premium Quality</span><span class="si-dot"></span>
-    <span class="si-item">Handkerchiefs</span><span class="si-dot"></span>
-    <span class="si-item">Towels</span><span class="si-dot"></span>
-    <span class="si-item">Socks</span><span class="si-dot"></span>
-    <span class="si-item">Manufacturer &amp; Exporter</span><span class="si-dot"></span>
-    <span class="si-item">Delhi, India</span><span class="si-dot"></span>
+    <span class="sit">all cotton</span><span class="sid"></span>
+    <span class="sit">premium quality</span><span class="sid"></span>
+    <span class="sit">handkerchiefs</span><span class="sid"></span>
+    <span class="sit">towels</span><span class="sid"></span>
+    <span class="sit">socks</span><span class="sid"></span>
+    <span class="sit">manufacturer &amp; exporter</span><span class="sid"></span>
+    <span class="sit">karol bagh, delhi</span><span class="sid"></span>
+    <span class="sit">all cotton</span><span class="sid"></span>
+    <span class="sit">premium quality</span><span class="sid"></span>
+    <span class="sit">handkerchiefs</span><span class="sid"></span>
+    <span class="sit">towels</span><span class="sid"></span>
+    <span class="sit">socks</span><span class="sid"></span>
+    <span class="sit">manufacturer &amp; exporter</span><span class="sid"></span>
+    <span class="sit">karol bagh, delhi</span><span class="sid"></span>
   </div>
 </div>
 
 <!-- ABOUT -->
 <section class="about" id="about">
   <div class="about-grid">
-    <div class="about-copy">
-      <p class="label fu">Heritage &amp; Craftsmanship</p>
-      <h2 class="about-h fu d1">Woven with<br><em>Precision</em>,<br>Crafted with Care</h2>
-      <p class="about-p fu d2">Chancellor is a flagship brand from the house of S M &amp; Sons — Manufacturers, Suppliers and Exporters of premium handkerchiefs, towels and socks. For decades, we have delivered excellence in fabric and finish from the heart of New Delhi.</p>
-      <p class="about-p fu d2">Our exhaustive range — from intricately embroidered handkerchiefs and monogrammed cotton squares, to plush bath towels and refined socks — is crafted using top-quality fabrics under the meticulous supervision of seasoned experts.</p>
+    <div>
+      <p class="lbl fu">heritage &amp; craftsmanship</p>
+      <h2 class="about-h fu d1">woven with<br><em>precision</em>,<br>crafted with care</h2>
+      <p class="about-p fu d2">Chancellor is a flagship brand from the house of S M &amp; Sons — manufacturers, suppliers and exporters of premium handkerchiefs, towels and socks. For decades we have delivered excellence in fabric and finish from the heart of New Delhi.</p>
+      <p class="about-p fu d2">Our exhaustive range — from intricately embroidered handkerchiefs and monogrammed cotton squares to plush bath towels and refined socks — is crafted using top-quality fabrics under meticulous expert supervision.</p>
       <div class="stats fu d3">
-        <div><div class="stn">500+</div><div class="stl">Product Variants</div></div>
-        <div><div class="stn">40+</div><div class="stl">Years Legacy</div></div>
-        <div><div class="stn">50+</div><div class="stl">Countries Served</div></div>
+        <div><div class="stn">500+</div><div class="stl">product variants</div></div>
+        <div><div class="stn">40+</div><div class="stl">years legacy</div></div>
+        <div><div class="stn">50+</div><div class="stl">countries served</div></div>
       </div>
     </div>
     <div class="about-vis fu d2">
-      <div class="vis-bg"></div>
+      <div class="vis-back"></div>
       <img class="vis-main" src="DSC_9935.JPG" alt="Chancellor Premium Bath Towel">
-      <img class="vis-badge" src="DSC_0139-chan-3pc-jaquard%20-%20Copy%20-%20Copy.png" alt="Chancellor Handkerchiefs">
+      <img class="vis-pin" src="DSC_0139-chan-3pc-jaquard%20-%20Copy%20-%20Copy.png" alt="Chancellor Handkerchiefs">
     </div>
   </div>
 </section>
@@ -512,50 +542,46 @@ footer{background:var(--black);padding:2.5rem 5%;
 <!-- CATEGORIES -->
 <section class="cats" id="categories">
   <div class="cats-in">
-    <div style="text-align:center">
-      <p class="label fu">Our Collections</p>
-      <h2 class="sec-h sec-h-inv fu d1">The Chancellor <em>Range</em></h2>
+    <div class="cats-hdr">
+      <div>
+        <p class="lbl" style="color:var(--sand2)">our collections</p>
+        <h2 class="cats-h">the chancellor <em>range</em></h2>
+      </div>
+      <p class="cats-sub">established · delhi · india</p>
     </div>
     <div class="cats-grid">
 
       <div class="cat fu">
-        <div class="cat-bg" style="background-image:url('CHAN-3PC-CHECKS-1PREMIUM%20-%20Copy%20-%20Copy%20(2).png');background-color:#2a2a2a"></div>
-        <svg class="stitch" viewBox="0 0 28 28" fill="none">
-          <path d="M0 0 L28 0 L28 28" stroke="rgba(196,168,130,.7)" stroke-width="1"/>
-          <circle cx="7" cy="3" r="1.5" fill="rgba(196,168,130,.5)"/>
-          <circle cx="3" cy="7" r="1.5" fill="rgba(196,168,130,.5)"/>
+        <div class="cat-bg" style="background-image:url('CHAN-3PC-CHECKS-1PREMIUM%20-%20Copy%20-%20Copy%20(2).png');background-color:#222"></div>
+        <svg class="cat-stitch" width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M0 0 L24 0 L24 24" stroke="rgba(212,184,150,.6)" stroke-width="1"/>
+          <circle cx="6" cy="2.5" r="1.2" fill="rgba(212,184,150,.5)"/>
         </svg>
         <div class="cat-body">
           <span class="cat-n">01</span>
-          <h3 class="cat-title">Handker<br>chiefs</h3>
-          <p class="cat-d">For men, women &amp; children. Checks, jacquard, embroidered monograms, pastels, lace and classic white.</p>
-          <a href="#hankies" class="cat-link">Explore</a>
+          <h3 class="cat-title">handker<br>chiefs</h3>
+          <p class="cat-d">for men, women &amp; children. checks, jacquard, embroidered monograms, pastels, lace and classic white.</p>
+          <a href="#hankies" class="cat-cta">explore</a>
         </div>
       </div>
 
       <div class="cat fu d1">
-        <div class="cat-bg" style="background-image:url('DSC_9938.JPG');background-color:#2a2020"></div>
-        <svg class="stitch" viewBox="0 0 28 28" fill="none">
-          <path d="M0 0 L28 0 L28 28" stroke="rgba(196,168,130,.7)" stroke-width="1"/>
-        </svg>
+        <div class="cat-bg" style="background-image:url('DSC_9938.JPG');background-color:#1a1515"></div>
         <div class="cat-body">
           <span class="cat-n">02</span>
-          <h3 class="cat-title">Towels</h3>
-          <p class="cat-d">Bath, hand and face towels. Rich terry cloth with elegant woven borders in sophisticated colours.</p>
-          <a href="#towels" class="cat-link">Explore</a>
+          <h3 class="cat-title">towels</h3>
+          <p class="cat-d">bath, hand &amp; face towels. rich terry cloth with elegant woven borders.</p>
+          <a href="#towels" class="cat-cta">explore</a>
         </div>
       </div>
 
       <div class="cat fu d2">
-        <div class="cat-bg" style="background-image:url('kayvan%20broad%202.png');background-color:#181820"></div>
-        <svg class="stitch" viewBox="0 0 28 28" fill="none">
-          <path d="M0 0 L28 0 L28 28" stroke="rgba(196,168,130,.7)" stroke-width="1"/>
-        </svg>
+        <div class="cat-bg" style="background-image:url('kayvan%20broad%202.png');background-color:#111118"></div>
         <div class="cat-body">
           <span class="cat-n">03</span>
-          <h3 class="cat-title">Socks</h3>
-          <p class="cat-d">Men's socks engineered for comfort and crafted for style. Premium cotton, refined construction.</p>
-          <a href="#socks" class="cat-link">Explore</a>
+          <h3 class="cat-title">socks</h3>
+          <p class="cat-d">men's socks engineered for comfort, crafted for style.</p>
+          <a href="#socks" class="cat-cta">explore</a>
         </div>
       </div>
 
@@ -564,194 +590,156 @@ footer{background:var(--black);padding:2.5rem 5%;
 </section>
 
 <!-- HANDKERCHIEFS -->
-<section class="hankies" id="hankies">
+<section class="hk" id="hankies">
   <div class="hk-in">
     <div class="hk-hdr">
       <div>
-        <p class="label">Chancellor Collection</p>
-        <h2 class="hk-title">Handker<em>chiefs</em></h2>
+        <p class="lbl">chancellor collection</p>
+        <h2 class="hk-h">handker<em>chiefs</em></h2>
       </div>
       <div class="filters">
-        <button class="ft on" data-f="all">All</button>
-        <button class="ft" data-f="mens">Men's</button>
-        <button class="ft" data-f="womens">Women's</button>
-        <button class="ft" data-f="premium">Premium</button>
+        <button class="ft on" data-f="all">all</button>
+        <button class="ft" data-f="mens">men's</button>
+        <button class="ft" data-f="womens">women's</button>
+        <button class="ft" data-f="premium">premium</button>
       </div>
     </div>
 
-    <div class="pgrid">
-
-      <div class="pc tall fu" data-c="premium">
+    <div class="hk-grid">
+      <!-- featured tall -->
+      <div class="pc feat fu" data-c="premium">
         <div class="pc-img">
-          <img src="chan-5-pc-pastel-1%20-%20Copy%20(2).png" alt="Solitaire Pastels 5-Piece">
-          <div class="pc-ov"></div>
+          <img src="chan-5-pc-pastel-1%20-%20Copy%20(2).png" alt="Solitaire Pastels 5pc">
         </div>
-        <div class="pc-name">Solitaire Pastels — 5 Pc</div>
-        <div class="pc-type">Premium · Gem of a Handkerchief</div>
+        <div class="pc-name">solitaire pastels — 5 pc</div>
+        <div class="pc-type">premium · gem of a handkerchief</div>
       </div>
-
+      <!-- row 1 -->
       <div class="pc fu d1" data-c="mens">
-        <div class="pc-img">
-          <img src="DSC_0170--CHAN-3-PC-DC-CHEC%20-%20Copy.png" alt="Dark Checks 3-Piece">
-          <div class="pc-ov"></div>
-        </div>
-        <div class="pc-name">Dark Checks — 3 Pc</div>
-        <div class="pc-type">Men's · All Cotton</div>
+        <div class="pc-img"><img src="DSC_0170--CHAN-3-PC-DC-CHEC%20-%20Copy.png" alt="Dark Checks"></div>
+        <div class="pc-name">dark checks — 3 pc</div>
+        <div class="pc-type">men's · all cotton</div>
       </div>
-
       <div class="pc fu d2" data-c="mens">
-        <div class="pc-img">
-          <img src="CHAN-3PC-CHECKS-1PREMIUM%20-%20Copy%20-%20Copy%20(2).png" alt="Checks Premium 3-Piece">
-          <div class="pc-ov"></div>
-        </div>
-        <div class="pc-name">Checks Premium — 3 Pc</div>
-        <div class="pc-type">Men's · All Cotton</div>
+        <div class="pc-img"><img src="CHAN-3PC-CHECKS-1PREMIUM%20-%20Copy%20-%20Copy%20(2).png" alt="Checks Premium"></div>
+        <div class="pc-name">checks premium — 3 pc</div>
+        <div class="pc-type">men's · all cotton</div>
       </div>
-
+      <div class="pc fu d3" data-c="womens premium">
+        <div class="pc-img"><img src="DSC_0166-CHAN-3-PC-LC-JAQUA%20-%20Copy.png" alt="Lace Jacquard"></div>
+        <div class="pc-name">lace jacquard — 3 pc</div>
+        <div class="pc-type">women's · jacquard</div>
+      </div>
+      <!-- row 2 -->
       <div class="pc fu" data-c="mens premium">
-        <div class="pc-img">
-          <img src="DSC_0151-chan--letter-N%20-%20Copy.png" alt="Monogram N 3-Piece">
-          <div class="pc-ov"></div>
-        </div>
-        <div class="pc-name">Monogram "N" — 3 Pc</div>
-        <div class="pc-type">Men's · Embroidered</div>
+        <div class="pc-img"><img src="DSC_0151-chan--letter-N%20-%20Copy.png" alt='Monogram N'></div>
+        <div class="pc-name">monogram "n" — 3 pc</div>
+        <div class="pc-type">men's · embroidered</div>
       </div>
-
       <div class="pc fu d1" data-c="mens premium">
-        <div class="pc-img">
-          <img src="DSC_0161-LETTERD%20-%20Copy.png" alt="Monogram D 3-Piece">
-          <div class="pc-ov"></div>
-        </div>
-        <div class="pc-name">Monogram "D" — 3 Pc</div>
-        <div class="pc-type">Men's · Embroidered</div>
+        <div class="pc-img"><img src="DSC_0161-LETTERD%20-%20Copy.png" alt='Monogram D'></div>
+        <div class="pc-name">monogram "d" — 3 pc</div>
+        <div class="pc-type">men's · embroidered</div>
       </div>
-
-      <div class="pc fu d2" data-c="womens premium">
-        <div class="pc-img">
-          <img src="DSC_0166-CHAN-3-PC-LC-JAQUA%20-%20Copy.png" alt="Lace Jacquard 3-Piece">
-          <div class="pc-ov"></div>
-        </div>
-        <div class="pc-name">Lace Jacquard — 3 Pc</div>
-        <div class="pc-type">Women's · Jacquard</div>
-      </div>
-
-      <div class="pc fu d3" data-c="premium">
-        <div class="pc-img">
-          <img src="CHAN-5-PC-WB-2%20-%20Copy.png" alt="Solitaire White 5-Piece">
-          <div class="pc-ov"></div>
-        </div>
-        <div class="pc-name">Solitaire White — 5 Pc</div>
-        <div class="pc-type">Premium · Gem of a Handkerchief</div>
-      </div>
-
-      <div class="pc fu" data-c="premium">
-        <div class="pc-img">
-          <img src="chan%206pc%20wb%20-%20Copy%20(2).png" alt="White Classic 6-Piece">
-          <div class="pc-ov"></div>
-        </div>
-        <div class="pc-name">White Classic — 6 Pc</div>
-        <div class="pc-type">Premium · Impress Yourself</div>
-      </div>
-
-      <div class="pc fu d1" data-c="mens">
-        <div class="pc-img">
-          <img src="DSC_0139-chan-3pc-jaquard%20-%20Copy%20-%20Copy.png" alt="Jacquard Classic 3-Piece">
-          <div class="pc-ov"></div>
-        </div>
-        <div class="pc-name">Jacquard Classic — 3 Pc</div>
-        <div class="pc-type">Men's · All Cotton</div>
-      </div>
-
       <div class="pc fu d2" data-c="premium">
-        <div class="pc-img">
-          <img src="CHAN-5-PC-LC-1%20-%20Copy%20-%20Copy%20-%20Copy.png" alt="Solitaire 5-Piece">
-          <div class="pc-ov"></div>
-        </div>
-        <div class="pc-name">Solitaire — 5 Pc</div>
-        <div class="pc-type">Premium · Gem of a Handkerchief</div>
+        <div class="pc-img"><img src="CHAN-5-PC-WB-2%20-%20Copy.png" alt="Solitaire White 5pc"></div>
+        <div class="pc-name">solitaire white — 5 pc</div>
+        <div class="pc-type">premium · impress yourself</div>
       </div>
-
+      <div class="pc fu d3" data-c="premium">
+        <div class="pc-img"><img src="chan%206pc%20wb%20-%20Copy%20(2).png" alt="White Classic 6pc"></div>
+        <div class="pc-name">white classic — 6 pc</div>
+        <div class="pc-type">premium · impress yourself</div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- QUOTE -->
-<section class="quote">
-  <div class="quote-in">
+<section class="qt">
+  <div class="qt-in">
     <div class="orn"><div class="ol"></div><div class="od"></div><div class="ol"></div></div>
-    <span class="qmark fu">"</span>
-    <blockquote class="qtxt fu d1">The finest things in life are those you carry with you always — crafted with precision, worn with pride.</blockquote>
-    <p class="qattr fu d2">Chancellor &nbsp;·&nbsp; S M &amp; Sons &nbsp;·&nbsp; Delhi</p>
+    <span class="qm fu">"</span>
+    <blockquote class="qtxt fu d1">the finest things in life are those you carry with you always — crafted with precision, worn with pride.</blockquote>
+    <p class="qattr fu d2">chancellor &nbsp;·&nbsp; s m &amp; sons &nbsp;·&nbsp; delhi</p>
     <div class="orn"><div class="ol"></div><div class="od"></div><div class="ol"></div></div>
   </div>
 </section>
 
 <!-- TOWELS -->
-<section class="towels" id="towels">
-  <div class="twl-in">
-    <p class="label fu">The Chancellor Collection</p>
-    <h2 class="sec-h fu d1" style="color:var(--ink)">Premium <em>Towels</em></h2>
-    <div class="twl-grid">
-      <div class="tw fu">
+<section class="tw-sec" id="towels">
+  <div class="tw-in">
+    <div class="tw-intro">
+      <div>
+        <p class="lbl fu">the chancellor collection</p>
+        <h2 class="hk-h fu d1">premium <em>towels</em></h2>
+        <p class="tw-desc fu d2">bath towels, hand towels and face towels — rich terry cloth with elegant woven borders in a palette of sophisticated colours.</p>
+      </div>
+    </div>
+    <div class="tw-mosaic">
+      <div class="tw-item fu">
         <img src="DSC_9935.JPG" alt="Bath Towel — Steel Blue">
-        <div class="tw-lbl"><div class="tw-name">Bath Towel — Steel Blue</div><div class="tw-spec">Diamond Weave Border · Premium Terry</div></div>
+        <div class="tw-lbl"><div class="tw-name">bath towel — steel blue</div><div class="tw-spec">diamond weave · premium terry</div></div>
       </div>
-      <div class="tw fu d1">
-        <img src="DSC_9938.JPG" alt="Bath Towel — Coral Rose">
-        <div class="tw-lbl"><div class="tw-name">Bath Towel — Coral Rose</div><div class="tw-spec">Diamond Weave Border · Premium Terry</div></div>
+      <div class="tw-item fu d1">
+        <img src="DSC_9938.JPG" alt="Bath Towel — Coral">
+        <div class="tw-lbl"><div class="tw-name">bath towel — coral rose</div><div class="tw-spec">diamond weave · premium terry</div></div>
       </div>
-      <div class="tw fu d2">
+      <div class="tw-item fu d2">
         <img src="DSC_9953.JPG" alt="Bath Towel — Navy">
-        <div class="tw-lbl"><div class="tw-name">Bath Towel — Navy</div><div class="tw-spec">Stripe Border · Premium Terry</div></div>
+        <div class="tw-lbl"><div class="tw-name">bath towel — navy</div><div class="tw-spec">stripe border · premium terry</div></div>
       </div>
-      <div class="tw fu d3">
+      <div class="tw-item fu d3">
         <img src="DSC_9965.JPG" alt="Bath Towel — Burgundy">
-        <div class="tw-lbl"><div class="tw-name">Bath Towel — Burgundy</div><div class="tw-spec">Silver Stripe · Luxury Terry</div></div>
+        <div class="tw-lbl"><div class="tw-name">bath towel — burgundy</div><div class="tw-spec">silver stripe · luxury terry</div></div>
       </div>
-      <div class="tw tw-span fu d2">
+      <div class="tw-item tw-wide fu d2">
         <img src="DSC_9950.JPG" alt="Face Towel — Terracotta">
-        <div class="tw-lbl"><div class="tw-name">Face Towel — Terracotta</div><div class="tw-spec">Diamond Border · Soft Terry</div></div>
+        <div class="tw-lbl"><div class="tw-name">face towel — terracotta</div><div class="tw-spec">diamond border · soft terry</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SOCKS -->
-<section class="socks" id="socks">
-  <div class="socks-in">
-    <div>
-      <p class="label fu">Men's Collection</p>
-      <h2 class="sk-title fu d1">Refined<br><em>Socks</em></h2>
-      <p class="sk-desc fu d2">Completing the Chancellor story from handkerchief to heel. Our men's socks are crafted with the same commitment to quality and fabric excellence that defines every Chancellor product.</p>
-      <ul class="sk-feats fu d3">
-        <li class="sf">Premium cotton construction</li>
-        <li class="sf">Reinforced heel and toe</li>
-        <li class="sf">Full-length comfort ribbing</li>
-        <li class="sf">Colourfast, wash-durable dyes</li>
-        <li class="sf">Available in assorted and solid packs</li>
+<!-- SOCKS / EDITORIAL -->
+<section class="editorial" id="socks">
+  <div class="ed-grid">
+    <div class="ed-text">
+      <p class="ed-label fu">men's collection</p>
+      <h2 class="ed-h fu d1">refined<br><em>socks</em></h2>
+      <p class="ed-p fu d2">completing the chancellor story from handkerchief to heel. premium cotton, refined construction, crafted with the same commitment to excellence.</p>
+      <ul class="ed-feats fu d3">
+        <li class="ef">premium cotton construction</li>
+        <li class="ef">reinforced heel and toe</li>
+        <li class="ef">full-length comfort ribbing</li>
+        <li class="ef">colourfast, wash-durable dyes</li>
+        <li class="ef">available in assorted and solid packs</li>
       </ul>
     </div>
-    <div class="sk-imgs fu d2">
-      <div class="ski w2"><img src="kayvan%20broad%202.png" alt="Kayvan Cotton Hankies"></div>
-      <div class="ski sq"><img src="Gemini_Generated_Image_72zlhg72zlhg72zl.png" alt="Rolled Towels"></div>
-      <div class="ski sq"><img src="DSC_0485-removebg-preview.png" alt="Pamli Handkerchiefs"></div>
+    <div class="ed-imgs">
+      <div class="ed-imgs-grid">
+        <div class="edi"><img src="DSC_9938.JPG" alt="Coral Towel"></div>
+        <div class="edi"><img src="kayvan%20broad%202.png" alt="Kayvan Cotton Hankies"></div>
+        <div class="edi"><img src="DSC_9953.JPG" alt="Navy Towel"></div>
+        <div class="edi"><img src="CHAN-5-PC-LC-1%20-%20Copy%20-%20Copy%20-%20Copy.png" alt="Solitaire Collection"></div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- CONTACT -->
-<section class="contact" id="contact">
+<section class="con" id="contact">
   <div class="con-in">
     <div>
-      <p class="label fu">Get In Touch</p>
-      <h2 class="con-title fu d1">Let's <em>Connect</em></h2>
+      <p class="lbl" style="color:var(--sand2)">get in touch</p>
+      <h2 class="con-h fu d1">let's <em>connect</em></h2>
       <div class="cdets">
         <div class="cdi fu d1">
           <div class="cdi-ico">
             <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
           </div>
           <div>
-            <div class="cdi-lbl">Sales Office</div>
+            <div class="cdi-lbl">sales office</div>
             <div class="cdi-val">8A/30 G, Basement, W.E.A, Karol Bagh<br>Delhi – 110005, India</div>
           </div>
         </div>
@@ -760,7 +748,7 @@ footer{background:var(--black);padding:2.5rem 5%;
             <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
           </div>
           <div>
-            <div class="cdi-lbl">Email</div>
+            <div class="cdi-lbl">email</div>
             <div class="cdi-val">mail@chancellorhankies.com<br>kayvanhankies@hotmail.com</div>
           </div>
         </div>
@@ -769,54 +757,52 @@ footer{background:var(--black);padding:2.5rem 5%;
             <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
           </div>
           <div>
-            <div class="cdi-lbl">Phone &amp; Mobile</div>
+            <div class="cdi-lbl">phone &amp; mobile</div>
             <div class="cdi-val">+91-11-47114161 &nbsp;·&nbsp; +91-11-25784562<br>+91 98105 09463 &nbsp;·&nbsp; +91 98118 51165</div>
           </div>
         </div>
       </div>
     </div>
-
     <form class="cform" onsubmit="return false">
       <div class="frow">
-        <div class="fg"><label class="fl">First Name</label><input type="text" class="fi" placeholder="John"></div>
-        <div class="fg"><label class="fl">Last Name</label><input type="text" class="fi" placeholder="Smith"></div>
+        <div class="fg"><label class="fl">first name</label><input type="text" class="fi" placeholder="John"></div>
+        <div class="fg"><label class="fl">last name</label><input type="text" class="fi" placeholder="Smith"></div>
       </div>
-      <div class="fg"><label class="fl">Email</label><input type="email" class="fi" placeholder="your@email.com"></div>
-      <div class="fg"><label class="fl">Enquiry Type</label><input type="text" class="fi" placeholder="Wholesale · Retail · Export"></div>
-      <div class="fg"><label class="fl">Message</label><textarea class="fta" placeholder="Tell us about your requirements..."></textarea></div>
-      <button class="fsub">Send Enquiry</button>
+      <div class="fg"><label class="fl">email</label><input type="email" class="fi" placeholder="your@email.com"></div>
+      <div class="fg"><label class="fl">enquiry type</label><input type="text" class="fi" placeholder="wholesale · retail · export"></div>
+      <div class="fg"><label class="fl">message</label><textarea class="fta" placeholder="tell us about your requirements..."></textarea></div>
+      <button class="fsub">send enquiry</button>
     </form>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="foot-in">
-    <div class="foot-logo">Chancellor</div>
-    <div class="foot-c">Handkerchiefs · Towels · Socks</div>
-    <div class="foot-r">A flagship brand of S M &amp; Sons<br>New Delhi, India</div>
+  <div class="foot">
+    <div class="foot-logo">chancellor</div>
+    <div class="foot-c">handkerchiefs · towels · socks</div>
+    <div class="foot-r">a flagship brand of s m &amp; sons<br>new delhi, india</div>
   </div>
 </footer>
 
 <script>
-// Nav scroll effect
+// Nav — no longer needs to change colour since hero is light
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => nav.classList.toggle('s', window.scrollY > 60), {passive:true});
 
-// Mobile nav
 function toggleMenu(){document.getElementById('navlinks').classList.toggle('open')}
 function closeMenu(){document.getElementById('navlinks').classList.remove('open')}
 
 // Scroll reveal
 const io = new IntersectionObserver(entries => {
-  entries.forEach(e => {if(e.isIntersecting) e.target.classList.add('vis')});
-},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('vis') });
+}, {threshold:.07, rootMargin:'0px 0px -30px 0px'});
 document.querySelectorAll('.fu').forEach(el => io.observe(el));
 
-// Hero immediate
+// Hero fires immediately
 setTimeout(() => {
   document.querySelectorAll('.hero .fu').forEach(el => el.classList.add('vis'));
-}, 150);
+}, 100);
 
 // Filter tabs
 document.querySelectorAll('.ft').forEach(t => {
