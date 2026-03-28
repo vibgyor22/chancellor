@@ -62,7 +62,7 @@ nav.s{background:rgba(250,247,242,.96);backdrop-filter:blur(16px);
 
 /* ─── HERO ─── */
 .hero{min-height:100vh;background:var(--off);position:relative;
-  display:flex;flex-direction:column;justify-content:flex-end;
+  display:flex;flex-direction:column;justify-content:space-between;
   overflow:hidden}
 
 /* Linen thread canvas */
@@ -85,7 +85,7 @@ nav.s{background:rgba(250,247,242,.96);backdrop-filter:blur(16px);
 .hero-meta{font-family:var(--fn);font-size:.56rem;letter-spacing:.22em;
   text-transform:uppercase;color:var(--light);text-align:right;line-height:1.9}
 
-.hero-title-wrap{position:relative;z-index:2;padding:0 5%;margin-top:auto}
+.hero-title-wrap{position:relative;z-index:2;padding:0 5%;flex:1;display:flex;align-items:center}
 h1.masthead{
   font-family:var(--fs);
   font-size:clamp(4rem,11.5vw,11rem);
@@ -97,7 +97,7 @@ h1.masthead{
   display:block;
   text-transform:lowercase;
 }
-h1.masthead em{font-style:italic;color:var(--sand)}
+h1.masthead em{font-style:italic;color:inherit}
 
 .hero-bottom{position:relative;z-index:2;
   padding:2rem 5% 3.5rem;
@@ -123,11 +123,7 @@ h1.masthead em{font-style:italic;color:var(--sand)}
 .stxt{font-family:var(--fn);font-size:.52rem;letter-spacing:.35em;
   text-transform:uppercase;color:var(--light)}
 
-/* product image in hero, blends on light bg */
-.hero-img-float{position:absolute;right:5%;bottom:4rem;z-index:3;
-  width:clamp(200px,22vw,340px)}
-.hero-img-float img{width:100%;height:auto;mix-blend-mode:multiply;
-  filter:contrast(1.05)}
+/* hero image removed — purely typographic hero */
 
 /* ─── TICKER ─── */
 .strip{background:var(--ink);padding:.9rem 0;overflow:hidden;white-space:nowrap}
@@ -475,12 +471,7 @@ footer{background:var(--ink);padding:2.2rem 5%;
   </div>
 
   <div class="hero-title-wrap">
-    <h1 class="masthead fu d1">chan<em>cel</em>lor</h1>
-  </div>
-
-  <!-- Product image blends on light bg via mix-blend-mode: multiply -->
-  <div class="hero-img-float fu d2">
-    <img src="chan-5-pc-pastel-1%20-%20Copy%20(2).png" alt="Chancellor Solitaire Collection">
+    <h1 class="masthead fu d1">chancellor</h1>
   </div>
 
   <div class="hero-bottom">
