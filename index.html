@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chancellor — Handkerchiefs · Towels · Socks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --black:#0a0a0a;
+  --ink:#1a1a1a;
+  --off:#f7f4ef;
+  --linen:#ede8df;
+  --sand:#c4a882;
+  --sand-lt:#d9c4a8;
+  --white:#fdfdfc;
+  --mid:#6b6b6b;
+  --light:#b0a898;
+  --fs:'Cormorant Garamond',Georgia,serif;
+  --fn:'Inter',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--fn);color:var(--ink);background:var(--white);overflow-x:hidden}
+
+/* ─── WOVEN TEXTURE ─── */
+/* Fine crosshatch on light bg */
+.tex-lt::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
+  background-image:
+    repeating-linear-gradient(0deg,transparent 0,transparent 5px,rgba(0,0,0,.025) 5px,rgba(0,0,0,.025) 6px),
+    repeating-linear-gradient(90deg,transparent 0,transparent 5px,rgba(0,0,0,.025) 5px,rgba(0,0,0,.025) 6px)}
+/* Fine crosshatch on dark bg */
+.tex-dk::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
+  background-image:
+    repeating-linear-gradient(0deg,transparent 0,transparent 5px,rgba(255,255,255,.04) 5px,rgba(255,255,255,.04) 6px),
+    repeating-linear-gradient(90deg,transparent 0,transparent 5px,rgba(255,255,255,.04) 5px,rgba(255,255,255,.04) 6px)}
+/* Diagonal twill on linen sections */
+.tex-tw::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
+  background-image:
+    repeating-linear-gradient(45deg,transparent 0,transparent 14px,rgba(0,0,0,.04) 14px,rgba(0,0,0,.04) 15px),
+    repeating-linear-gradient(-45deg,transparent 0,transparent 14px,rgba(0,0,0,.04) 14px,rgba(0,0,0,.04) 15px)}
+.tex-lt>*,.tex-dk>*,.tex-tw>*{position:relative;z-index:1}
+
+/* ─── NAV ─── */
+nav{position:fixed;top:0;left:0;right:0;z-index:999;
+  padding:2rem 5%;display:flex;align-items:center;justify-content:space-between;
+  transition:all .4s ease}
+nav.s{background:rgba(253,253,252,.96);backdrop-filter:blur(14px);
+  padding:1rem 5%;border-bottom:1px solid rgba(0,0,0,.07)}
+.nav-logo{font-family:var(--fs);font-size:1.5rem;font-weight:600;
+  letter-spacing:.2em;color:var(--white);text-decoration:none;
+  text-transform:uppercase;transition:color .4s}
+nav.s .nav-logo{color:var(--ink)}
+.nav-links{display:flex;gap:2.4rem;list-style:none;align-items:center}
+.nav-links a{font-size:.62rem;font-weight:500;letter-spacing:.22em;
+  text-transform:uppercase;color:rgba(255,255,255,.75);
+  text-decoration:none;transition:color .3s}
+nav.s .nav-links a{color:var(--mid)}
+.nav-links a:hover{color:var(--sand)}
+nav.s .nav-links a:hover{color:var(--ink)}
+.nav-cta{border:1px solid rgba(255,255,255,.4)!important;
+  padding:.4rem 1rem!important;color:rgba(255,255,255,.8)!important;transition:all .3s!important}
+nav.s .nav-cta{border-color:var(--ink)!important;color:var(--ink)!important}
+.nav-cta:hover{background:var(--white)!important;color:var(--ink)!important;
+  border-color:var(--white)!important}
+nav.s .nav-cta:hover{background:var(--ink)!important;color:var(--white)!important}
+.burger{display:none;flex-direction:column;gap:5px;cursor:pointer}
+.burger span{display:block;width:22px;height:1px;background:var(--white);transition:all .3s}
+nav.s .burger span{background:var(--ink)}
+
+/* ─── HERO ─── */
+.hero{min-height:100vh;background:var(--black);position:relative;
+  display:flex;align-items:center;overflow:hidden}
+.hero-canvas{position:absolute;inset:0;pointer-events:none}
+.hero-in{position:relative;z-index:2;padding:0 5%;width:100%;
+  max-width:1500px;margin:0 auto;padding-top:6rem}
+.hero-pre{font-size:.6rem;letter-spacing:.5em;text-transform:uppercase;
+  color:var(--sand);margin-bottom:1.8rem;display:flex;align-items:center;gap:1.2rem}
+.hero-pre::before{content:'';width:32px;height:1px;background:var(--sand)}
+h1{font-family:var(--fs);font-size:clamp(5.5rem,13vw,12rem);
+  font-weight:300;line-height:.88;color:var(--white);
+  letter-spacing:-.02em;margin-bottom:2rem}
+h1 em{font-style:italic;color:rgba(255,255,255,.35)}
+.hero-sub{font-family:var(--fs);font-size:clamp(1rem,2vw,1.5rem);
+  font-weight:300;font-style:italic;color:rgba(255,255,255,.4);
+  letter-spacing:.08em;margin-bottom:3.5rem}
+.hero-btns{display:flex;gap:2rem;align-items:center;flex-wrap:wrap}
+.btn-inv{font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;
+  border:1px solid rgba(255,255,255,.3);color:rgba(255,255,255,.8);
+  padding:.9rem 2.2rem;text-decoration:none;transition:all .35s}
+.btn-inv:hover{background:var(--white);color:var(--ink);border-color:var(--white)}
+.btn-ghost{font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;
+  color:rgba(255,255,255,.4);text-decoration:none;
+  border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:.15rem;transition:all .3s}
+.btn-ghost:hover{color:var(--white);border-color:rgba(255,255,255,.6)}
+.hero-img{position:absolute;right:6%;top:50%;transform:translateY(-50%);
+  width:clamp(260px,28vw,440px);z-index:2}
+.hero-img img{width:100%;height:auto;
+  filter:drop-shadow(0 40px 80px rgba(0,0,0,.7)) brightness(1.05)}
+.hero-vline{position:absolute;right:5%;bottom:0;top:0;width:1px;
+  background:linear-gradient(to bottom,transparent,rgba(255,255,255,.08),transparent);
+  z-index:1}
+.hero-scrollind{position:absolute;bottom:2.5rem;left:5%;
+  display:flex;align-items:center;gap:.85rem;z-index:2}
+.sline{width:40px;height:1px;background:rgba(255,255,255,.15);
+  position:relative;overflow:hidden}
+.sline::after{content:'';position:absolute;top:0;left:-100%;
+  width:100%;height:100%;background:var(--sand);
+  animation:si 2.2s ease-in-out infinite}
+@keyframes si{0%{left:-100%}55%{left:0}100%{left:100%}}
+.stxt{font-size:.56rem;letter-spacing:.35em;text-transform:uppercase;
+  color:rgba(255,255,255,.25)}
+.hero-sidetxt{position:absolute;right:2rem;bottom:6rem;
+  writing-mode:vertical-rl;font-size:.55rem;letter-spacing:.4em;
+  text-transform:uppercase;color:rgba(255,255,255,.18);z-index:2}
+
+/* ─── TICKER STRIP ─── */
+.strip{background:var(--sand);padding:1rem 0;overflow:hidden;
+  display:flex;align-items:center;white-space:nowrap}
+.strip-track{display:flex;gap:3rem;align-items:center;
+  animation:tick 22s linear infinite;padding-right:3rem}
+.strip-track:hover{animation-play-state:paused}
+.si-item{font-size:.58rem;letter-spacing:.35em;text-transform:uppercase;
+  color:var(--black);font-weight:500}
+.si-dot{width:3px;height:3px;background:var(--black);
+  border-radius:50%;opacity:.35;flex-shrink:0}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ─── SECTION UTILITY ─── */
+.label{font-size:.58rem;letter-spacing:.42em;text-transform:uppercase;
+  color:var(--sand);margin-bottom:.9rem}
+.sec-h{font-family:var(--fs);font-size:clamp(2.2rem,4vw,3.6rem);
+  font-weight:300;line-height:1.12}
+.sec-h em{font-style:italic;color:rgba(0,0,0,.35)}
+.sec-h-inv{color:var(--white)}
+.sec-h-inv em{color:rgba(255,255,255,.3)}
+
+/* ─── ABOUT ─── */
+.about{padding:9rem 5%;background:var(--off);position:relative}
+.about-grid{max-width:1400px;margin:0 auto;display:grid;
+  grid-template-columns:1fr 1fr;gap:8rem;align-items:center}
+.about-copy .label{color:var(--sand)}
+.about-h{font-family:var(--fs);font-size:clamp(2.4rem,4vw,3.8rem);
+  font-weight:400;line-height:1.12;color:var(--ink);margin-bottom:1.8rem}
+.about-h em{font-style:italic;color:var(--sand)}
+.about-p{font-size:.86rem;line-height:1.95;color:var(--mid);margin-bottom:1.1rem}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;
+  margin-top:2.8rem;padding-top:2rem;border-top:1px solid rgba(0,0,0,.1)}
+.stn{font-family:var(--fs);font-size:2.5rem;font-weight:300;
+  color:var(--ink);line-height:1;margin-bottom:.2rem}
+.stl{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--light)}
+.about-vis{position:relative;padding-bottom:3rem}
+.vis-bg{position:absolute;top:2.5rem;right:-2rem;bottom:0;left:2.5rem;
+  background:var(--linen);z-index:0}
+.vis-main{position:relative;z-index:1;width:100%;display:block}
+.vis-badge{position:absolute;bottom:0;left:-2rem;
+  width:52%;z-index:2;border:6px solid var(--off)}
+
+/* ─── CATEGORIES ─── */
+.cats{padding:6rem 5%;background:var(--ink);position:relative}
+.cats::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:
+    repeating-linear-gradient(0deg,transparent 0,transparent 5px,rgba(255,255,255,.03) 5px,rgba(255,255,255,.03) 6px),
+    repeating-linear-gradient(90deg,transparent 0,transparent 5px,rgba(255,255,255,.03) 5px,rgba(255,255,255,.03) 6px)}
+.cats-in{max-width:1400px;margin:0 auto;position:relative;z-index:1}
+.cats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:3.5rem}
+.cat{position:relative;aspect-ratio:4/5;overflow:hidden;cursor:pointer}
+.cat-bg{position:absolute;inset:0;background-size:cover;background-position:center;
+  transition:transform .9s cubic-bezier(.25,.46,.45,.94),filter .5s ease;
+  filter:grayscale(60%) brightness(.5)}
+.cat:hover .cat-bg{transform:scale(1.06);filter:grayscale(0%) brightness(.38)}
+.cat-body{position:absolute;inset:0;display:flex;flex-direction:column;
+  justify-content:flex-end;padding:2.2rem;z-index:2}
+.cat-n{font-size:.62rem;letter-spacing:.3em;color:var(--sand);margin-bottom:.4rem}
+.cat-title{font-family:var(--fs);font-size:2rem;font-weight:300;
+  color:var(--white);line-height:1.1;margin-bottom:.7rem}
+.cat-d{font-size:.76rem;line-height:1.7;color:rgba(255,255,255,.5);
+  max-width:230px;transform:translateY(10px);opacity:0;transition:all .45s}
+.cat:hover .cat-d{transform:translateY(0);opacity:1}
+.cat-link{display:inline-flex;align-items:center;gap:.6rem;
+  font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--sand);margin-top:1.2rem;text-decoration:none;
+  transform:translateX(-10px);opacity:0;transition:all .4s .1s}
+.cat:hover .cat-link{transform:translateX(0);opacity:1}
+.cat-link::after{content:'→'}
+/* stitch corner */
+.stitch{position:absolute;top:1.4rem;right:1.4rem;z-index:2;
+  width:28px;height:28px;opacity:.4}
+
+/* ─── HANDKERCHIEFS ─── */
+.hankies{padding:8rem 5%;background:var(--white);position:relative}
+.hankies::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:
+    repeating-linear-gradient(0deg,transparent 0,transparent 5px,rgba(0,0,0,.018) 5px,rgba(0,0,0,.018) 6px),
+    repeating-linear-gradient(90deg,transparent 0,transparent 5px,rgba(0,0,0,.018) 5px,rgba(0,0,0,.018) 6px)}
+.hk-in{max-width:1400px;margin:0 auto;position:relative;z-index:1}
+.hk-hdr{display:flex;align-items:flex-end;justify-content:space-between;
+  flex-wrap:wrap;gap:1.5rem;margin-bottom:3rem}
+.hk-title{font-family:var(--fs);font-size:clamp(2rem,4vw,3.2rem);
+  font-weight:300;color:var(--ink)}
+.hk-title em{font-style:italic;color:var(--sand)}
+.filters{display:flex;border-bottom:1px solid rgba(0,0,0,.1)}
+.ft{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;
+  padding:.6rem 1.2rem;cursor:pointer;color:var(--light);
+  border:none;border-bottom:2px solid transparent;margin-bottom:-1px;
+  background:none;transition:all .3s;font-family:var(--fn)}
+.ft.on{color:var(--ink);border-bottom-color:var(--sand)}
+.ft:hover:not(.on){color:var(--ink)}
+.pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem}
+.pc{position:relative}
+.pc.hide{display:none}
+.pc-img{background:var(--linen);aspect-ratio:3/4;overflow:hidden;margin-bottom:.7rem;position:relative}
+.pc-img img{width:100%;height:100%;object-fit:cover;mix-blend-mode:multiply;
+  transition:transform .6s cubic-bezier(.25,.46,.45,.94)}
+.pc:hover .pc-img img{transform:scale(1.05)}
+.pc-ov{position:absolute;inset:0;
+  background:rgba(0,0,0,0);transition:background .35s}
+.pc:hover .pc-ov{background:rgba(0,0,0,.08)}
+.pc.tall{grid-row:span 2}
+.pc.tall .pc-img{aspect-ratio:unset;height:100%;min-height:450px}
+.pc-name{font-family:var(--fs);font-size:.95rem;color:var(--ink);margin-bottom:.15rem}
+.pc-type{font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--light)}
+
+/* ─── QUOTE ─── */
+.quote{padding:7rem 5%;background:var(--linen);position:relative;overflow:hidden}
+.quote::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:
+    repeating-linear-gradient(45deg,transparent 0,transparent 16px,rgba(0,0,0,.04) 16px,rgba(0,0,0,.04) 17px),
+    repeating-linear-gradient(-45deg,transparent 0,transparent 16px,rgba(0,0,0,.04) 16px,rgba(0,0,0,.04) 17px)}
+.quote-in{max-width:820px;margin:0 auto;text-align:center;position:relative;z-index:1}
+.orn{display:flex;align-items:center;justify-content:center;gap:.9rem;margin:1.5rem 0}
+.ol{height:1px;width:50px;background:var(--sand);opacity:.5}
+.od{width:5px;height:5px;background:var(--sand);transform:rotate(45deg);opacity:.65}
+.qmark{font-family:var(--fs);font-size:5rem;line-height:.4;
+  color:var(--sand);display:block;margin-bottom:1.2rem;opacity:.45}
+.qtxt{font-family:var(--fs);font-size:clamp(1.7rem,3vw,2.7rem);
+  font-weight:300;font-style:italic;color:var(--ink);line-height:1.45;margin-bottom:1.5rem}
+.qattr{font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--light)}
+
+/* ─── TOWELS ─── */
+.towels{padding:8rem 5%;background:var(--off)}
+.twl-in{max-width:1400px;margin:0 auto}
+.twl-grid{display:grid;grid-template-columns:1.2fr .85fr .85fr 1.2fr;
+  gap:1.2rem;margin-top:3rem;align-items:start}
+.tw{overflow:hidden}
+.tw:nth-child(2){margin-top:5rem}
+.tw:nth-child(4){margin-top:5rem}
+.tw img{width:100%;height:auto;display:block;
+  transition:transform .6s ease,filter .4s ease;filter:brightness(.95) saturate(.9)}
+.tw:hover img{transform:scale(1.04);filter:brightness(1) saturate(1.05)}
+.tw-lbl{padding:.6rem 0 0}
+.tw-name{font-family:var(--fs);font-size:.92rem;color:var(--ink)}
+.tw-spec{font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--light);margin-top:.15rem}
+.tw-span{grid-column:2/4;margin-top:0!important}
+
+/* ─── SOCKS ─── */
+.socks{padding:8rem 5%;background:var(--black);position:relative;overflow:hidden}
+.socks::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:
+    repeating-linear-gradient(0deg,transparent 0,transparent 5px,rgba(255,255,255,.03) 5px,rgba(255,255,255,.03) 6px),
+    repeating-linear-gradient(90deg,transparent 0,transparent 5px,rgba(255,255,255,.03) 5px,rgba(255,255,255,.03) 6px)}
+.socks-in{max-width:1400px;margin:0 auto;position:relative;z-index:1;
+  display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
+.sk-title{font-family:var(--fs);font-size:clamp(2.5rem,4vw,4rem);
+  font-weight:300;color:var(--white);line-height:1.2;margin:1rem 0 1.5rem}
+.sk-title em{font-style:italic;color:rgba(255,255,255,.3)}
+.sk-desc{font-size:.85rem;line-height:1.95;
+  color:rgba(255,255,255,.45);margin-bottom:2.5rem}
+.sk-feats{list-style:none;display:flex;flex-direction:column;gap:.7rem}
+.sf{display:flex;align-items:center;gap:1rem;
+  font-size:.76rem;color:rgba(255,255,255,.6)}
+.sf::before{content:'';display:block;width:16px;height:1px;
+  background:var(--sand);flex-shrink:0}
+.sk-imgs{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.ski{overflow:hidden;background:rgba(255,255,255,.04)}
+.ski img{width:100%;height:100%;object-fit:cover;
+  transition:transform .55s ease,filter .4s;filter:grayscale(20%)}
+.ski:hover img{transform:scale(1.05);filter:grayscale(0%)}
+.ski.w2{grid-column:span 2;aspect-ratio:16/8}
+.ski.sq{aspect-ratio:1}
+
+/* ─── CONTACT ─── */
+.contact{padding:8rem 5%;background:var(--ink);position:relative;overflow:hidden}
+.contact::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:
+    repeating-linear-gradient(0deg,transparent 0,transparent 5px,rgba(255,255,255,.03) 5px,rgba(255,255,255,.03) 6px),
+    repeating-linear-gradient(90deg,transparent 0,transparent 5px,rgba(255,255,255,.03) 5px,rgba(255,255,255,.03) 6px)}
+.con-in{max-width:1400px;margin:0 auto;position:relative;z-index:1;
+  display:grid;grid-template-columns:1fr 1.1fr;gap:6rem}
+.con-title{font-family:var(--fs);font-size:clamp(2.5rem,4vw,4rem);
+  font-weight:300;color:var(--white);line-height:1.2;margin:1rem 0 2.5rem}
+.con-title em{font-style:italic;color:rgba(255,255,255,.3)}
+.cdets{display:flex;flex-direction:column;gap:2rem}
+.cdi{display:flex;gap:1.3rem;align-items:flex-start}
+.cdi-ico{width:32px;height:32px;border:1px solid rgba(196,168,130,.3);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem}
+.cdi-ico svg{width:12px;height:12px;stroke:var(--sand);fill:none;stroke-width:1.5}
+.cdi-lbl{font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--sand);margin-bottom:.3rem}
+.cdi-val{font-size:.82rem;color:rgba(255,255,255,.6);line-height:1.65}
+.cform{display:flex;flex-direction:column;gap:1rem}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+.fg{display:flex;flex-direction:column;gap:.3rem}
+.fl{font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(255,255,255,.35)}
+.fi,.fta{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+  color:var(--white);padding:.7rem .85rem;font-family:var(--fn);
+  font-size:.83rem;outline:none;transition:border-color .3s;resize:none}
+.fi::placeholder,.fta::placeholder{color:rgba(255,255,255,.2)}
+.fi:focus,.fta:focus{border-color:var(--sand)}
+.fta{height:105px}
+.fsub{background:var(--white);color:var(--ink);border:none;
+  padding:.85rem 2.2rem;font-family:var(--fn);font-size:.6rem;
+  letter-spacing:.25em;text-transform:uppercase;cursor:pointer;
+  font-weight:500;transition:all .3s;align-self:flex-start}
+.fsub:hover{background:var(--sand);color:var(--black)}
+
+/* ─── FOOTER ─── */
+footer{background:var(--black);padding:2.5rem 5%;
+  border-top:1px solid rgba(255,255,255,.07)}
+.foot-in{max-width:1400px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.foot-logo{font-family:var(--fs);font-size:1.1rem;
+  letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.35)}
+.foot-c{font-size:.56rem;letter-spacing:.28em;text-transform:uppercase;
+  color:rgba(255,255,255,.2)}
+.foot-r{font-size:.58rem;letter-spacing:.1em;
+  color:rgba(255,255,255,.2);text-align:right;line-height:1.6}
+
+/* ─── REVEAL ANIM ─── */
+.fu{opacity:0;transform:translateY(26px);
+  transition:opacity .75s ease,transform .75s ease}
+.fu.vis{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.12s}.d2{transition-delay:.22s}
+.d3{transition-delay:.34s}.d4{transition-delay:.46s}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:1060px){
+  .about-grid,.con-in,.socks-in{grid-template-columns:1fr;gap:3.5rem}
+  .vis-badge{display:none}
+  .cats-grid{grid-template-columns:1fr;gap:2px}
+  .cat{aspect-ratio:16/9}
+  .pgrid{grid-template-columns:repeat(2,1fr)}
+  .pc.tall{grid-row:auto}.pc.tall .pc-img{min-height:unset;aspect-ratio:3/4}
+  .twl-grid{grid-template-columns:1fr 1fr}
+  .tw:nth-child(2),.tw:nth-child(4){margin-top:0}
+  .tw-span{grid-column:span 1}
+}
+@media(max-width:680px){
+  nav,nav.s{padding:1.2rem 4%}
+  .nav-links{display:none}.nav-links.open{display:flex;flex-direction:column;
+    position:fixed;inset:0;background:var(--black);align-items:center;
+    justify-content:center;gap:2rem;z-index:998}
+  .nav-links.open a{font-size:1rem}
+  .burger{display:flex}
+  .hero-img,.hero-sidetxt{display:none}
+  .strip-track{animation-duration:14s}
+  .pgrid{grid-template-columns:1fr 1fr}
+  .frow{grid-template-columns:1fr}
+  .hk-hdr{flex-direction:column;align-items:flex-start}
+  .foot-in{flex-direction:column;align-items:center;text-align:center}
+  .foot-r{text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">Chancellor</a>
+  <ul class="nav-links" id="navlinks">
+    <li><a href="#hankies" onclick="closeMenu()">Handkerchiefs</a></li>
+    <li><a href="#towels" onclick="closeMenu()">Towels</a></li>
+    <li><a href="#socks" onclick="closeMenu()">Socks</a></li>
+    <li><a href="#about" onclick="closeMenu()">About</a></li>
+    <li><a href="#contact" class="nav-cta" onclick="closeMenu()">Contact</a></li>
+  </ul>
+  <div class="burger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <svg class="hero-canvas" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <defs>
+      <pattern id="wp" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
+        <line x1="0" y1="40" x2="80" y2="40" stroke="rgba(255,255,255,.04)" stroke-width=".5"/>
+        <line x1="40" y1="0" x2="40" y2="80" stroke="rgba(255,255,255,.04)" stroke-width=".5"/>
+      </pattern>
+      <pattern id="tp" x="0" y="0" width="140" height="140" patternUnits="userSpaceOnUse">
+        <line x1="0" y1="70" x2="140" y2="70" stroke="rgba(196,168,130,.06)" stroke-width="1"/>
+        <line x1="70" y1="0" x2="70" y2="140" stroke="rgba(196,168,130,.06)" stroke-width="1"/>
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#wp)"/>
+    <rect width="100%" height="100%" fill="url(#tp)"/>
+    <!-- Diagonal accent threads -->
+    <line x1="100%" y1="0" x2="55%" y2="100%" stroke="rgba(196,168,130,.1)" stroke-width="1.5"/>
+    <line x1="88%" y1="0" x2="43%" y2="100%" stroke="rgba(196,168,130,.06)" stroke-width="1"/>
+    <line x1="76%" y1="0" x2="31%" y2="100%" stroke="rgba(196,168,130,.04)" stroke-width=".7"/>
+    <!-- Left accent -->
+    <line x1="0" y1="30%" x2="30%" y2="100%" stroke="rgba(255,255,255,.03)" stroke-width="1"/>
+  </svg>
+
+  <div class="hero-in">
+    <p class="hero-pre fu">S M &amp; Sons &nbsp;·&nbsp; Est. Delhi, India</p>
+    <h1 class="fu d1">Chan<em>cel</em><br>lor</h1>
+    <p class="hero-sub fu d2">Impress Yourself</p>
+    <div class="hero-btns fu d3">
+      <a href="#hankies" class="btn-inv">Explore Collection</a>
+      <a href="#about" class="btn-ghost">Our Heritage</a>
+    </div>
+  </div>
+
+  <div class="hero-img fu d2">
+    <img src="chan-5-pc-pastel-1%20-%20Copy%20(2).png" alt="Chancellor Solitaire Collection">
+  </div>
+
+  <span class="hero-sidetxt">Handkerchiefs · Towels · Socks</span>
+  <div class="hero-vline"></div>
+  <div class="hero-scrollind">
+    <div class="sline"></div>
+    <span class="stxt">Scroll</span>
+  </div>
+</section>
+
+<!-- STRIP -->
+<div class="strip">
+  <div class="strip-track">
+    <span class="si-item">All Cotton</span><span class="si-dot"></span>
+    <span class="si-item">Premium Quality</span><span class="si-dot"></span>
+    <span class="si-item">Handkerchiefs</span><span class="si-dot"></span>
+    <span class="si-item">Towels</span><span class="si-dot"></span>
+    <span class="si-item">Socks</span><span class="si-dot"></span>
+    <span class="si-item">Manufacturer &amp; Exporter</span><span class="si-dot"></span>
+    <span class="si-item">Delhi, India</span><span class="si-dot"></span>
+    <span class="si-item">All Cotton</span><span class="si-dot"></span>
+    <span class="si-item">Premium Quality</span><span class="si-dot"></span>
+    <span class="si-item">Handkerchiefs</span><span class="si-dot"></span>
+    <span class="si-item">Towels</span><span class="si-dot"></span>
+    <span class="si-item">Socks</span><span class="si-dot"></span>
+    <span class="si-item">Manufacturer &amp; Exporter</span><span class="si-dot"></span>
+    <span class="si-item">Delhi, India</span><span class="si-dot"></span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-grid">
+    <div class="about-copy">
+      <p class="label fu">Heritage &amp; Craftsmanship</p>
+      <h2 class="about-h fu d1">Woven with<br><em>Precision</em>,<br>Crafted with Care</h2>
+      <p class="about-p fu d2">Chancellor is a flagship brand from the house of S M &amp; Sons — Manufacturers, Suppliers and Exporters of premium handkerchiefs, towels and socks. For decades, we have delivered excellence in fabric and finish from the heart of New Delhi.</p>
+      <p class="about-p fu d2">Our exhaustive range — from intricately embroidered handkerchiefs and monogrammed cotton squares, to plush bath towels and refined socks — is crafted using top-quality fabrics under the meticulous supervision of seasoned experts.</p>
+      <div class="stats fu d3">
+        <div><div class="stn">500+</div><div class="stl">Product Variants</div></div>
+        <div><div class="stn">40+</div><div class="stl">Years Legacy</div></div>
+        <div><div class="stn">50+</div><div class="stl">Countries Served</div></div>
+      </div>
+    </div>
+    <div class="about-vis fu d2">
+      <div class="vis-bg"></div>
+      <img class="vis-main" src="DSC_9935.JPG" alt="Chancellor Premium Bath Towel">
+      <img class="vis-badge" src="DSC_0139-chan-3pc-jaquard%20-%20Copy%20-%20Copy.png" alt="Chancellor Handkerchiefs">
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="cats" id="categories">
+  <div class="cats-in">
+    <div style="text-align:center">
+      <p class="label fu">Our Collections</p>
+      <h2 class="sec-h sec-h-inv fu d1">The Chancellor <em>Range</em></h2>
+    </div>
+    <div class="cats-grid">
+
+      <div class="cat fu">
+        <div class="cat-bg" style="background-image:url('CHAN-3PC-CHECKS-1PREMIUM%20-%20Copy%20-%20Copy%20(2).png');background-color:#2a2a2a"></div>
+        <svg class="stitch" viewBox="0 0 28 28" fill="none">
+          <path d="M0 0 L28 0 L28 28" stroke="rgba(196,168,130,.7)" stroke-width="1"/>
+          <circle cx="7" cy="3" r="1.5" fill="rgba(196,168,130,.5)"/>
+          <circle cx="3" cy="7" r="1.5" fill="rgba(196,168,130,.5)"/>
+        </svg>
+        <div class="cat-body">
+          <span class="cat-n">01</span>
+          <h3 class="cat-title">Handker<br>chiefs</h3>
+          <p class="cat-d">For men, women &amp; children. Checks, jacquard, embroidered monograms, pastels, lace and classic white.</p>
+          <a href="#hankies" class="cat-link">Explore</a>
+        </div>
+      </div>
+
+      <div class="cat fu d1">
+        <div class="cat-bg" style="background-image:url('DSC_9938.JPG');background-color:#2a2020"></div>
+        <svg class="stitch" viewBox="0 0 28 28" fill="none">
+          <path d="M0 0 L28 0 L28 28" stroke="rgba(196,168,130,.7)" stroke-width="1"/>
+        </svg>
+        <div class="cat-body">
+          <span class="cat-n">02</span>
+          <h3 class="cat-title">Towels</h3>
+          <p class="cat-d">Bath, hand and face towels. Rich terry cloth with elegant woven borders in sophisticated colours.</p>
+          <a href="#towels" class="cat-link">Explore</a>
+        </div>
+      </div>
+
+      <div class="cat fu d2">
+        <div class="cat-bg" style="background-image:url('kayvan%20broad%202.png');background-color:#181820"></div>
+        <svg class="stitch" viewBox="0 0 28 28" fill="none">
+          <path d="M0 0 L28 0 L28 28" stroke="rgba(196,168,130,.7)" stroke-width="1"/>
+        </svg>
+        <div class="cat-body">
+          <span class="cat-n">03</span>
+          <h3 class="cat-title">Socks</h3>
+          <p class="cat-d">Men's socks engineered for comfort and crafted for style. Premium cotton, refined construction.</p>
+          <a href="#socks" class="cat-link">Explore</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HANDKERCHIEFS -->
+<section class="hankies" id="hankies">
+  <div class="hk-in">
+    <div class="hk-hdr">
+      <div>
+        <p class="label">Chancellor Collection</p>
+        <h2 class="hk-title">Handker<em>chiefs</em></h2>
+      </div>
+      <div class="filters">
+        <button class="ft on" data-f="all">All</button>
+        <button class="ft" data-f="mens">Men's</button>
+        <button class="ft" data-f="womens">Women's</button>
+        <button class="ft" data-f="premium">Premium</button>
+      </div>
+    </div>
+
+    <div class="pgrid">
+
+      <div class="pc tall fu" data-c="premium">
+        <div class="pc-img">
+          <img src="chan-5-pc-pastel-1%20-%20Copy%20(2).png" alt="Solitaire Pastels 5-Piece">
+          <div class="pc-ov"></div>
+        </div>
+        <div class="pc-name">Solitaire Pastels — 5 Pc</div>
+        <div class="pc-type">Premium · Gem of a Handkerchief</div>
+      </div>
+
+      <div class="pc fu d1" data-c="mens">
+        <div class="pc-img">
+          <img src="DSC_0170--CHAN-3-PC-DC-CHEC%20-%20Copy.png" alt="Dark Checks 3-Piece">
+          <div class="pc-ov"></div>
+        </div>
+        <div class="pc-name">Dark Checks — 3 Pc</div>
+        <div class="pc-type">Men's · All Cotton</div>
+      </div>
+
+      <div class="pc fu d2" data-c="mens">
+        <div class="pc-img">
+          <img src="CHAN-3PC-CHECKS-1PREMIUM%20-%20Copy%20-%20Copy%20(2).png" alt="Checks Premium 3-Piece">
+          <div class="pc-ov"></div>
+        </div>
+        <div class="pc-name">Checks Premium — 3 Pc</div>
+        <div class="pc-type">Men's · All Cotton</div>
+      </div>
+
+      <div class="pc fu" data-c="mens premium">
+        <div class="pc-img">
+          <img src="DSC_0151-chan--letter-N%20-%20Copy.png" alt="Monogram N 3-Piece">
+          <div class="pc-ov"></div>
+        </div>
+        <div class="pc-name">Monogram "N" — 3 Pc</div>
+        <div class="pc-type">Men's · Embroidered</div>
+      </div>
+
+      <div class="pc fu d1" data-c="mens premium">
+        <div class="pc-img">
+          <img src="DSC_0161-LETTERD%20-%20Copy.png" alt="Monogram D 3-Piece">
+          <div class="pc-ov"></div>
+        </div>
+        <div class="pc-name">Monogram "D" — 3 Pc</div>
+        <div class="pc-type">Men's · Embroidered</div>
+      </div>
+
+      <div class="pc fu d2" data-c="womens premium">
+        <div class="pc-img">
+          <img src="DSC_0166-CHAN-3-PC-LC-JAQUA%20-%20Copy.png" alt="Lace Jacquard 3-Piece">
+          <div class="pc-ov"></div>
+        </div>
+        <div class="pc-name">Lace Jacquard — 3 Pc</div>
+        <div class="pc-type">Women's · Jacquard</div>
+      </div>
+
+      <div class="pc fu d3" data-c="premium">
+        <div class="pc-img">
+          <img src="CHAN-5-PC-WB-2%20-%20Copy.png" alt="Solitaire White 5-Piece">
+          <div class="pc-ov"></div>
+        </div>
+        <div class="pc-name">Solitaire White — 5 Pc</div>
+        <div class="pc-type">Premium · Gem of a Handkerchief</div>
+      </div>
+
+      <div class="pc fu" data-c="premium">
+        <div class="pc-img">
+          <img src="chan%206pc%20wb%20-%20Copy%20(2).png" alt="White Classic 6-Piece">
+          <div class="pc-ov"></div>
+        </div>
+        <div class="pc-name">White Classic — 6 Pc</div>
+        <div class="pc-type">Premium · Impress Yourself</div>
+      </div>
+
+      <div class="pc fu d1" data-c="mens">
+        <div class="pc-img">
+          <img src="DSC_0139-chan-3pc-jaquard%20-%20Copy%20-%20Copy.png" alt="Jacquard Classic 3-Piece">
+          <div class="pc-ov"></div>
+        </div>
+        <div class="pc-name">Jacquard Classic — 3 Pc</div>
+        <div class="pc-type">Men's · All Cotton</div>
+      </div>
+
+      <div class="pc fu d2" data-c="premium">
+        <div class="pc-img">
+          <img src="CHAN-5-PC-LC-1%20-%20Copy%20-%20Copy%20-%20Copy.png" alt="Solitaire 5-Piece">
+          <div class="pc-ov"></div>
+        </div>
+        <div class="pc-name">Solitaire — 5 Pc</div>
+        <div class="pc-type">Premium · Gem of a Handkerchief</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<section class="quote">
+  <div class="quote-in">
+    <div class="orn"><div class="ol"></div><div class="od"></div><div class="ol"></div></div>
+    <span class="qmark fu">"</span>
+    <blockquote class="qtxt fu d1">The finest things in life are those you carry with you always — crafted with precision, worn with pride.</blockquote>
+    <p class="qattr fu d2">Chancellor &nbsp;·&nbsp; S M &amp; Sons &nbsp;·&nbsp; Delhi</p>
+    <div class="orn"><div class="ol"></div><div class="od"></div><div class="ol"></div></div>
+  </div>
+</section>
+
+<!-- TOWELS -->
+<section class="towels" id="towels">
+  <div class="twl-in">
+    <p class="label fu">The Chancellor Collection</p>
+    <h2 class="sec-h fu d1" style="color:var(--ink)">Premium <em>Towels</em></h2>
+    <div class="twl-grid">
+      <div class="tw fu">
+        <img src="DSC_9935.JPG" alt="Bath Towel — Steel Blue">
+        <div class="tw-lbl"><div class="tw-name">Bath Towel — Steel Blue</div><div class="tw-spec">Diamond Weave Border · Premium Terry</div></div>
+      </div>
+      <div class="tw fu d1">
+        <img src="DSC_9938.JPG" alt="Bath Towel — Coral Rose">
+        <div class="tw-lbl"><div class="tw-name">Bath Towel — Coral Rose</div><div class="tw-spec">Diamond Weave Border · Premium Terry</div></div>
+      </div>
+      <div class="tw fu d2">
+        <img src="DSC_9953.JPG" alt="Bath Towel — Navy">
+        <div class="tw-lbl"><div class="tw-name">Bath Towel — Navy</div><div class="tw-spec">Stripe Border · Premium Terry</div></div>
+      </div>
+      <div class="tw fu d3">
+        <img src="DSC_9965.JPG" alt="Bath Towel — Burgundy">
+        <div class="tw-lbl"><div class="tw-name">Bath Towel — Burgundy</div><div class="tw-spec">Silver Stripe · Luxury Terry</div></div>
+      </div>
+      <div class="tw tw-span fu d2">
+        <img src="DSC_9950.JPG" alt="Face Towel — Terracotta">
+        <div class="tw-lbl"><div class="tw-name">Face Towel — Terracotta</div><div class="tw-spec">Diamond Border · Soft Terry</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOCKS -->
+<section class="socks" id="socks">
+  <div class="socks-in">
+    <div>
+      <p class="label fu">Men's Collection</p>
+      <h2 class="sk-title fu d1">Refined<br><em>Socks</em></h2>
+      <p class="sk-desc fu d2">Completing the Chancellor story from handkerchief to heel. Our men's socks are crafted with the same commitment to quality and fabric excellence that defines every Chancellor product.</p>
+      <ul class="sk-feats fu d3">
+        <li class="sf">Premium cotton construction</li>
+        <li class="sf">Reinforced heel and toe</li>
+        <li class="sf">Full-length comfort ribbing</li>
+        <li class="sf">Colourfast, wash-durable dyes</li>
+        <li class="sf">Available in assorted and solid packs</li>
+      </ul>
+    </div>
+    <div class="sk-imgs fu d2">
+      <div class="ski w2"><img src="kayvan%20broad%202.png" alt="Kayvan Cotton Hankies"></div>
+      <div class="ski sq"><img src="Gemini_Generated_Image_72zlhg72zlhg72zl.png" alt="Rolled Towels"></div>
+      <div class="ski sq"><img src="DSC_0485-removebg-preview.png" alt="Pamli Handkerchiefs"></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="con-in">
+    <div>
+      <p class="label fu">Get In Touch</p>
+      <h2 class="con-title fu d1">Let's <em>Connect</em></h2>
+      <div class="cdets">
+        <div class="cdi fu d1">
+          <div class="cdi-ico">
+            <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+          </div>
+          <div>
+            <div class="cdi-lbl">Sales Office</div>
+            <div class="cdi-val">8A/30 G, Basement, W.E.A, Karol Bagh<br>Delhi – 110005, India</div>
+          </div>
+        </div>
+        <div class="cdi fu d2">
+          <div class="cdi-ico">
+            <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+          </div>
+          <div>
+            <div class="cdi-lbl">Email</div>
+            <div class="cdi-val">mail@chancellorhankies.com<br>kayvanhankies@hotmail.com</div>
+          </div>
+        </div>
+        <div class="cdi fu d3">
+          <div class="cdi-ico">
+            <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
+          </div>
+          <div>
+            <div class="cdi-lbl">Phone &amp; Mobile</div>
+            <div class="cdi-val">+91-11-47114161 &nbsp;·&nbsp; +91-11-25784562<br>+91 98105 09463 &nbsp;·&nbsp; +91 98118 51165</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <form class="cform" onsubmit="return false">
+      <div class="frow">
+        <div class="fg"><label class="fl">First Name</label><input type="text" class="fi" placeholder="John"></div>
+        <div class="fg"><label class="fl">Last Name</label><input type="text" class="fi" placeholder="Smith"></div>
+      </div>
+      <div class="fg"><label class="fl">Email</label><input type="email" class="fi" placeholder="your@email.com"></div>
+      <div class="fg"><label class="fl">Enquiry Type</label><input type="text" class="fi" placeholder="Wholesale · Retail · Export"></div>
+      <div class="fg"><label class="fl">Message</label><textarea class="fta" placeholder="Tell us about your requirements..."></textarea></div>
+      <button class="fsub">Send Enquiry</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-in">
+    <div class="foot-logo">Chancellor</div>
+    <div class="foot-c">Handkerchiefs · Towels · Socks</div>
+    <div class="foot-r">A flagship brand of S M &amp; Sons<br>New Delhi, India</div>
+  </div>
+</footer>
+
+<script>
+// Nav scroll effect
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('s', window.scrollY > 60), {passive:true});
+
+// Mobile nav
+function toggleMenu(){document.getElementById('navlinks').classList.toggle('open')}
+function closeMenu(){document.getElementById('navlinks').classList.remove('open')}
+
+// Scroll reveal
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {if(e.isIntersecting) e.target.classList.add('vis')});
+},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.fu').forEach(el => io.observe(el));
+
+// Hero immediate
+setTimeout(() => {
+  document.querySelectorAll('.hero .fu').forEach(el => el.classList.add('vis'));
+}, 150);
+
+// Filter tabs
+document.querySelectorAll('.ft').forEach(t => {
+  t.addEventListener('click', () => {
+    document.querySelectorAll('.ft').forEach(x => x.classList.remove('on'));
+    t.classList.add('on');
+    const f = t.dataset.f;
+    document.querySelectorAll('.pc').forEach(c => {
+      c.classList.toggle('hide', f !== 'all' && !c.dataset.c.includes(f));
+    });
+  });
+});
+</script>
+</body>
+</html>
